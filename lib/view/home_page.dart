@@ -1,8 +1,7 @@
-import 'package:agrupapiro/enum/rotas.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import '../components/button_custom.dart';
-import '../components/input_custom.dart';
+import '../components/home_components/group_container.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -16,10 +15,22 @@ class HomePage extends StatelessWidget {
         backgroundColor: Colors.red,
       ),
       body: Center(
-        child: Column(
-          children: [
-            Text('Home'),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+              GroupContainer(),
+            ],
+          ),
         ),
       ),
     );

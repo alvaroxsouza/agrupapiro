@@ -23,6 +23,14 @@ class CadastroPage extends StatelessWidget {
             ),
             SizedBox(height: 16),
             InputCustom(
+              label: 'CPF',
+              hint: 'Digite seu CPF',
+              onChanged: (value) {
+                print(value);
+              },
+            ),
+            SizedBox(height: 16),
+            InputCustom(
               label: 'Email',
               hint: 'Digite seu email',
               onChanged: (value) {
@@ -33,6 +41,16 @@ class CadastroPage extends StatelessWidget {
             InputCustom(
               label: 'Senha',
               hint: 'Digite sua senha',
+              password: true,
+              onChanged: (value) {
+                print(value);
+              },
+            ),
+            SizedBox(height: 16),
+            InputCustom(
+              label: 'Digite novamente sua senha',
+              hint: 'Digite novamente a sua senha',
+              password: true,
               onChanged: (value) {
                 print(value);
               },
