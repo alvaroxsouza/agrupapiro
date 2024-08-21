@@ -1,11 +1,12 @@
 import 'package:agrupapiro/enum/rotas.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../components/group_components/button_menu_section.dart';
 
-class GroupPage extends StatelessWidget {
+class GroupPage extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Grupo X'),

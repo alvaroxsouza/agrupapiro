@@ -18,13 +18,13 @@ class ButtonMenuSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, this.route);
+        Navigator.pushNamed(context, route);
       },
       child: Container(
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          color: this.color,
+          color: color,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Row(
@@ -37,10 +37,10 @@ class ButtonMenuSection extends StatelessWidget {
               color: Colors.white,
               size: 30,
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Text(
               label,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
               ),

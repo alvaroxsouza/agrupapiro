@@ -1,0 +1,152 @@
+import 'package:agrupapiro/enum/permissoes.dart';
+import 'package:agrupapiro/models/Activity.dart';
+import 'package:agrupapiro/providers/activity_notifier_provider.dart';
+import 'package:agrupapiro/providers/user_notifier_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:agrupapiro/models/user.dart';
+import '../enum/prioridade.dart';
+
+class CreateTaskPage extends ConsumerWidget {
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _deadlineController = TextEditingController();
+  Priority _selectedPriority = Priority.media;
+  User? _selectedUser;
+
+  CreateTaskPage({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final users = [
+      User(id: '1', name: 'User 1', email: 'email', password: 'senha', permissao: Permissoes.usuario),
+      User(id: '2', name: 'User 2', email: 'emaila', password: 'senhaa', permissao: Permissoes.admin),
+    ];
+
+    final currentUser = ref.watch(userProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Criar Tarefa'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              controller: _titleController,
+              decoration: const InputDecoration(
+                labelText: 'Título',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _descriptionController,
+              decoration: const InputDecoration(
+                labelText: 'Descrição',
+                border: OutlineInputBorder(),
+              ),
+              maxLines: 3,
+            ),
+            const SizedBox(height: 16),
+            TextField(
+              controller: _deadlineController,
+              decoration: const InputDecoration(
+                labelText: 'Prazo (dd/mm/yyyy)',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.datetime,
+            ),
+            const SizedBox(height: 16),
+            DropdownButtonFormField<Priority>(
+              value: _selectedPriority,
+              onChanged: (Priority? newValue) {
+                if (newValue != null) {
+                  _selectedPriority = newValue;
+                }
+              },
+              items: Priority.values.map((Priority priority) {
+                return DropdownMenuItem<Priority>(
+                  value: priority,
+                  child: Text(priority.name),
+                );
+              }).toList(),
+              decoration: const InputDecoration(
+                labelText: 'Prioridade',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            DropdownButtonFormField<User>(
+              value: _selectedUser,
+              onChanged: (User? newValue) {
+                _selectedUser = newValue;
+              },
+              items: users.map((User user) {
+                return DropdownMenuItem<User>(
+                  value: user,
+                  child: Text(user.name),
+                );
+              }).toList(),
+              decoration: const InputDecoration(
+                labelText: 'Responsável',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+
+            
+
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  if (currentUser?.permissao == Permissoes.admin) {
+                    final title = _titleController.text;
+                    final description = _descriptionController.text;
+                    final deadline = DateTime.tryParse(_deadlineController.text);
+                    if (deadline == null) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Por favor, insira uma data válida.')),
+                      );
+                      return;
+                    }
+                    final priority = _selectedPriority;
+                    final user = _selectedUser;
+
+                    if (title.isNotEmpty && description.isNotEmpty && user != null) {
+                      final newActivity = Activity(
+                        title: title,
+                        description: description,
+                        deadline: deadline,
+                        prioridade: priority,
+                        user: user,
+                        color: Colors.blueGrey,
+                      );
+
+                      ref.read(activityProvider.notifier).addActivity(newActivity);
+                      Navigator.pop(context);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Por favor, preencha todos os campos obrigatórios.')),
+                      );
+                    }
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Você não tem permissão para criar tarefas.')),
+                    );
+                  }
+                },
+                child: const Text('Salvar Tarefa'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+

@@ -1,12 +1,17 @@
-import 'package:agrupapiro/enum/rotas.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:agrupapiro/enum/rotas.dart';
+import 'package:agrupapiro/providers/user_notifier_provider.dart';
 
-import '../components/button_custom.dart';
-import '../components/input_custom.dart';
+class LoginPage extends ConsumerWidget {
+  const LoginPage({super.key});
 
-class LoginPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final userNotifier = ref.watch(userProvider.notifier);
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Login', style: TextStyle(color: Colors.black)),
@@ -20,41 +25,58 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InputCustom(
-                    label: 'Email/Usuário',
-                    hint: 'Digite seu email/Usuario',
-                    onChanged: (value) {
-                      print(value);
-                    },
+                  TextField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(
+                      labelText: 'Email/Usuário',
+                      hintText: 'Digite seu email/usuário',
+                    ),
                   ),
-                  SizedBox(height: 16),
-                  InputCustom(
-                    label: 'Senha',
-                    hint: 'Digite sua senha',
-                    keyboardType: TextInputType.visiblePassword,
-                    onChanged: (value) {
-                      print(value);
-                    },
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      labelText: 'Senha',
+                      hintText: 'Digite sua senha',
+                    ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      ButtonCustom(
-                        label: 'Cadastrar',
-                        color: Colors.white,
-                        colorText: Colors.black,
+                      ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed(Routes.CADASTRO);
                         },
+                        child: const Text('Cadastrar'),
                       ),
-                      ButtonCustom(
-                        label: 'Entrar',
-                        color: Colors.red,
-                        colorText: Colors.black,
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(Routes.HOME);
+                      ElevatedButton(
+                        onPressed: () async {
+                          final email = emailController.text.trim();
+                          final password = passwordController.text.trim();
+
+                          if (email.isEmpty || password.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Por favor, preencha todos os campos.')),
+                            );
+                            return;
+                          }
+
+                          final success = await userNotifier.login(email, password);
+                          if (success) {
+                            Navigator.of(context).pushReplacementNamed(Routes.HOME);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Falha no login. Verifique suas credenciais.')),
+                            );
+                          }
                         },
+                        child: const Text('Entrar'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red,
+                        ),
                       ),
                     ],
                   ),
@@ -67,3 +89,4 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
+
