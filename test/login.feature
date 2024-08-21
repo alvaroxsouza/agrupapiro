@@ -2,8 +2,8 @@ Feature: User Login
 
   Background:
     Given the app is running
-      And I have {'Fulano Di Tal'} usuario
-      And I have {'password'} senha
+      And I have {'Fulano Di Tal'} username
+      And I have {'password'} password
 
   Scenario: Successeful login
     Given I see {'usuario'} input field
@@ -11,12 +11,13 @@ Feature: User Login
     When I enter {'Fulano Di Tal'} into {'usuario'} input field
       And I enter {'password'} into {'senha'} input field
       And I tap {'Login'} button
-    Then I see {'Bem vindo!'} text # Pressupondo que foi redirecionado com o login válido
+    Then I see {'Bem vindo!'} text 
+      And I should be redirected to the aplication's homepage
 
-  Scenario: Invalid user
+  Scenario: Invalid username
     Given I see {'usuario'} input field
       And I see {'senha'} input field
-    When I enter {'Bletrano'} into {'usuario'} input field
+    When I enter {'Beltrano'} into {'usuario'} input field
       And I enter {'password'} into {'senha'} input field
       And I tap {'Login'} button
     Then I see {'Usuario ou senha inválido'} text
@@ -29,7 +30,7 @@ Feature: User Login
       And I tap {'Login'} button
     Then I see {'Usuario ou senha inválido'} text
 
-  Scenario: Forgot credentials
+  Scenario: Forgot password
     Given I see {'Esqueci minha senha'} text
       And I tap {'Esqueci minha senha'} text
       And I see {'email'} input field
