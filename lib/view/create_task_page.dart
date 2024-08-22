@@ -51,13 +51,37 @@ class CreateTaskPage extends ConsumerWidget {
               maxLines: 3,
             ),
             const SizedBox(height: 16),
-            TextField(
+            TextFormField(
               controller: _deadlineController,
               decoration: const InputDecoration(
                 labelText: 'Prazo (dd/mm/yyyy)',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.datetime,
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Por favor, insira uma data.';
+                }
+                final dateParts = value.split('/');
+                if (dateParts.length != 3) {
+                  return 'Data deve estar no formato dd/mm/yyyy.';
+                }
+                final day = int.tryParse(dateParts[0]);
+                final month = int.tryParse(dateParts[1]);
+                final year = int.tryParse(dateParts[2]);
+                if (day == null || month == null || year == null || day < 1 || month < 1 || month > 12) {
+                  return 'Data inválida.';
+                }
+                try {
+                  final date = DateTime(year, month, day);
+                  if (date.year != year || date.month != month || date.day != day) {
+                    return 'Data inválida.';
+                  }
+                } catch (e) {
+                  return 'Data inválida.';
+                }
+                return null;
+              },
             ),
             const SizedBox(height: 16),
             DropdownButtonFormField<Priority>(
@@ -97,21 +121,43 @@ class CreateTaskPage extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
 
-            
-
             Center(
               child: ElevatedButton(
                 onPressed: () {
                   if (currentUser?.permissao == Permissoes.admin) {
                     final title = _titleController.text;
                     final description = _descriptionController.text;
-                    final deadline = DateTime.tryParse(_deadlineController.text);
-                    if (deadline == null) {
+                    final deadlineString = _deadlineController.text;
+                    final dateParts = deadlineString.split('/');
+                    
+                    if (dateParts.length != 3) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Por favor, insira uma data válida.')),
+                        const SnackBar(content: Text('Data deve estar no formato dd/mm/yyyy.')),
                       );
                       return;
                     }
+
+                    final day = int.tryParse(dateParts[0]);
+                    final month = int.tryParse(dateParts[1]);
+                    final year = int.tryParse(dateParts[2]);
+                    
+                    if (day == null || month == null || year == null || day < 1 || month < 1 || month > 12) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Data inválida.')),
+                      );
+                      return;
+                    }
+
+                    DateTime? deadline;
+                    try {
+                      deadline = DateTime(year, month, day);
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Data inválida.')),
+                      );
+                      return;
+                    }
+                    
                     final priority = _selectedPriority;
                     final user = _selectedUser;
 
@@ -147,6 +193,3 @@ class CreateTaskPage extends ConsumerWidget {
     );
   }
 }
-
-
-
