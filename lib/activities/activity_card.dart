@@ -3,6 +3,7 @@ import 'package:agrupapiro/view/activity_detail_page.dart';
 import 'package:flutter/material.dart';
 
 
+
 class ActivityCard extends StatelessWidget {
   final Activity activity;
 

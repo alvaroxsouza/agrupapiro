@@ -1,7 +1,9 @@
 import 'package:agrupapiro/enum/permissoes.dart';
+import 'package:agrupapiro/enum/status_activity.dart';
 import 'package:agrupapiro/models/Activity.dart';
 import 'package:agrupapiro/providers/activity_notifier_provider.dart';
 import 'package:agrupapiro/providers/user_notifier_provider.dart';
+import 'package:agrupapiro/providers/users_notifier_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/models/user.dart';
@@ -12,16 +14,14 @@ class CreateTaskPage extends ConsumerWidget {
   final TextEditingController _descriptionController = TextEditingController();
   final TextEditingController _deadlineController = TextEditingController();
   Priority _selectedPriority = Priority.media;
+  Status _selectedStatus = Status.pendente; // Novo campo para status
   User? _selectedUser;
 
   CreateTaskPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final users = [
-      User(id: '1', name: 'User 1', email: 'email', password: 'senha', permissao: Permissoes.usuario),
-      User(id: '2', name: 'User 2', email: 'emaila', password: 'senhaa', permissao: Permissoes.admin),
-    ];
+    final users = ref.watch(usersProvider);
 
     final currentUser = ref.watch(userProvider);
 
@@ -69,12 +69,19 @@ class CreateTaskPage extends ConsumerWidget {
                 final day = int.tryParse(dateParts[0]);
                 final month = int.tryParse(dateParts[1]);
                 final year = int.tryParse(dateParts[2]);
-                if (day == null || month == null || year == null || day < 1 || month < 1 || month > 12) {
+                if (day == null ||
+                    month == null ||
+                    year == null ||
+                    day < 1 ||
+                    month < 1 ||
+                    month > 12) {
                   return 'Data inválida.';
                 }
                 try {
                   final date = DateTime(year, month, day);
-                  if (date.year != year || date.month != month || date.day != day) {
+                  if (date.year != year ||
+                      date.month != month ||
+                      date.day != day) {
                     return 'Data inválida.';
                   }
                 } catch (e) {
@@ -120,7 +127,25 @@ class CreateTaskPage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-
+            DropdownButtonFormField<Status>(
+              value: _selectedStatus, // Novo Dropdown para Status
+              onChanged: (Status? newValue) {
+                if (newValue != null) {
+                  _selectedStatus = newValue;
+                }
+              },
+              items: Status.values.map((Status status) {
+                return DropdownMenuItem<Status>(
+                  value: status,
+                  child: Text(status.name),
+                );
+              }).toList(),
+              decoration: const InputDecoration(
+                labelText: 'Status da Tarefa', // Novo campo para Status
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -129,10 +154,12 @@ class CreateTaskPage extends ConsumerWidget {
                     final description = _descriptionController.text;
                     final deadlineString = _deadlineController.text;
                     final dateParts = deadlineString.split('/');
-                    
+
                     if (dateParts.length != 3) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Data deve estar no formato dd/mm/yyyy.')),
+                        const SnackBar(
+                            content:
+                                Text('Data deve estar no formato dd/mm/yyyy.')),
                       );
                       return;
                     }
@@ -140,8 +167,13 @@ class CreateTaskPage extends ConsumerWidget {
                     final day = int.tryParse(dateParts[0]);
                     final month = int.tryParse(dateParts[1]);
                     final year = int.tryParse(dateParts[2]);
-                    
-                    if (day == null || month == null || year == null || day < 1 || month < 1 || month > 12) {
+
+                    if (day == null ||
+                        month == null ||
+                        year == null ||
+                        day < 1 ||
+                        month < 1 ||
+                        month > 12) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text('Data inválida.')),
                       );
@@ -157,30 +189,42 @@ class CreateTaskPage extends ConsumerWidget {
                       );
                       return;
                     }
-                    
+
                     final priority = _selectedPriority;
                     final user = _selectedUser;
+                    final status = _selectedStatus; // Novo campo para Status
 
-                    if (title.isNotEmpty && description.isNotEmpty && user != null) {
+                    if (title.isNotEmpty &&
+                        description.isNotEmpty &&
+                        user != null) {
                       final newActivity = Activity(
+                        id: DateTime.now()
+                            .millisecondsSinceEpoch, // Gera um ID único
                         title: title,
                         description: description,
                         deadline: deadline,
                         prioridade: priority,
                         user: user,
                         color: Colors.blueGrey,
+                        status: status, // Define o status ao criar a tarefa
                       );
 
-                      ref.read(activityProvider.notifier).addActivity(newActivity);
+                      ref
+                          .read(activityProvider.notifier)
+                          .addActivity(newActivity);
                       Navigator.pop(context);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Por favor, preencha todos os campos obrigatórios.')),
+                        const SnackBar(
+                            content: Text(
+                                'Por favor, preencha todos os campos obrigatórios.')),
                       );
                     }
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Você não tem permissão para criar tarefas.')),
+                      const SnackBar(
+                          content: Text(
+                              'Você não tem permissão para criar tarefas.')),
                     );
                   }
                 },

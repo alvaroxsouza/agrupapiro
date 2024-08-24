@@ -25,21 +25,31 @@ class ActivityPage extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final activity = activities[index];
                 return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   child: ListTile(
                     contentPadding: const EdgeInsets.all(16),
-                    title: Text(activity.title, style: Theme.of(context).textTheme.titleMedium),
+                    title: Text(activity.title,
+                        style: Theme.of(context).textTheme.titleMedium),
+
+                        
                     subtitle: Text(
-                      '${activity.description}\nPrazo: ${activity.deadline.toLocal().toString().split(' ')[0]}\nPrioridade: ${activity.prioridade.name}',
+                      '${activity.description}\n'
+                      'Prazo: ${activity.deadline.toLocal().toString().split(' ')[0]}\n'
+                      'Prioridade: ${activity.prioridade.name}\n'
+                      'Status: ${activity.status.name}', // Exibindo o status da tarefa
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
+
+
                     trailing: const Icon(Icons.task),
                     onTap: () {
                       // Navegar para a página de detalhes da atividade
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ActivityDetailsPage(activity: activity),
+                          builder: (context) =>
+                              ActivityDetailsPage(activity: activity),
                         ),
                       );
                     },
@@ -61,5 +71,3 @@ class ActivityPage extends ConsumerWidget {
     );
   }
 }
-
-

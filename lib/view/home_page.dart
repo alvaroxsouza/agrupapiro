@@ -1,4 +1,3 @@
-import 'package:agrupapiro/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -72,43 +71,3 @@ class HomePage extends ConsumerWidget {
   }
 }
 
-
-/*import 'package:flutter/material.dart';
-
-import '../components/home_components/group_container.dart';
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Home',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: Colors.red,
-      ),
-      body: const Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}*/

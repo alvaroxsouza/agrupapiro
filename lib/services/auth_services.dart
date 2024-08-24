@@ -1,6 +1,6 @@
 import 'package:agrupapiro/enum/permissoes.dart';
+import 'package:agrupapiro/models/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/user.dart';
 
 class AuthService {
   // Função para registrar usuário
@@ -14,10 +14,9 @@ class AuthService {
       final user = User(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         email: email,
-        password:
-            password, // simulação
+        password: password, // simulação
         name: 'User',
-        permissao: Permissoes.usuario, 
+        permissao: Permissoes.usuario,
       );
 
       // Simulação de armazenamento de usuário
@@ -28,7 +27,7 @@ class AuthService {
     }
   }
 
-  //  login do usuário
+  // Função de login do usuário
   Future<User?> loginUser(String email, String password) async {
     try {
       if (email.isEmpty || password.isEmpty) {
@@ -38,20 +37,19 @@ class AuthService {
       // Simulação de verificação de credenciais
       if (email == 'admin@ex.com' && password == 'admin123') {
         return User(
-          id: 'admin1', 
+          id: '2',
           email: email,
-          password:
-              password, 
+          password: password,
           name: 'Admin',
-          permissao: Permissoes.admin, 
+          permissao: Permissoes.admin,
         );
       } else if (email == 'usuario@ex.com' && password == 'us123') {
         return User(
-          id: 'user1', 
+          id: '1',
           email: email,
           password: password,
-          name: 'usuario',
-          permissao: Permissoes.usuario, 
+          name: 'Usuario',
+          permissao: Permissoes.usuario,
         );
       }
 
@@ -60,6 +58,41 @@ class AuthService {
     } catch (e) {
       print('Erro ao fazer login: $e');
       return null;
+    }
+  }
+
+  // Função para buscar usuários (simulação)
+  Future<List<User>> fetchUsers() async {
+    try {
+      // Simulação de uma lista de usuários
+      final List<User> users = [
+        User(
+          id: '1',
+          email: 'usuario@ex.com',
+          password: 'us123',
+          name: 'Usuario',
+          permissao: Permissoes.usuario,
+        ),
+        User(
+          id: '2',
+          email: 'admin@ex.com',
+          password: 'admin123',
+          name: 'Admin',
+          permissao: Permissoes.admin,
+        ),
+        User(
+          id: '3',
+          email: 'gestor@ex.com',
+          password: 'gestor123',
+          name: 'Gestor',
+          permissao: Permissoes.admin,
+        ),
+      ];
+
+      return users;
+    } catch (e) {
+      print('Erro ao buscar usuários: $e');
+      return [];
     }
   }
 }

@@ -50,6 +50,8 @@ class UserNotifier extends StateNotifier<User?> {
   }
 }
 
+
+
 // Provider para UserNotifier
 final userProvider = StateNotifierProvider<UserNotifier, User?>((ref) {
   return UserNotifier(AuthService());

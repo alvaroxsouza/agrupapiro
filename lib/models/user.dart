@@ -5,7 +5,11 @@ class User {
   final String id;
   final String email;
   final String password;
-  final Permissoes permissao; 
+  final Permissoes permissao;
+
+  var status;
+
+  static var value; 
 
   User({
     required this.name,

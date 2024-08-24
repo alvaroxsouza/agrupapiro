@@ -1,3 +1,4 @@
+import 'package:agrupapiro/enum/permissoes.dart';
 import 'package:agrupapiro/models/Activity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,16 +7,18 @@ import 'package:agrupapiro/providers/user_notifier_provider.dart';
 import '../enum/prioridade.dart';
 
 class EditTaskPage extends ConsumerWidget {
-  final Activity task;
+  final Activity activity;
 
-  EditTaskPage({required this.task});
+  EditTaskPage({required this.activity});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleController = TextEditingController(text: task.title);
-    final descriptionController = TextEditingController(text: task.description);
-    final deadlineController = TextEditingController(text: task.deadline.toIso8601String());
-    var priority = task.prioridade;
+    final titleController = TextEditingController(text: activity.title);
+    final descriptionController =
+        TextEditingController(text: activity.description);
+    final deadlineController =
+        TextEditingController(text: activity.deadline.toString());
+    var priority = activity.prioridade;
 
     final currentUser = ref.watch(userProvider);
 
@@ -49,12 +52,12 @@ class EditTaskPage extends ConsumerWidget {
             TextField(
               controller: deadlineController,
               decoration: const InputDecoration(
-                labelText: 'Prazo (yyyy-MM-dd)',
+                labelText: 'Prazo (dd-MM-yyyy)',
                 border: OutlineInputBorder(),
               ),
               keyboardType: TextInputType.datetime,
             ),
-            
+
             const SizedBox(height: 16),
             DropdownButtonFormField<Priority>(
               value: priority,
@@ -78,26 +81,53 @@ class EditTaskPage extends ConsumerWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  if (currentUser != null && currentUser.id == task.user.id) {
-                    final updatedTask = Activity(
+                  if (currentUser != null &&
+                      currentUser.id == activity.user.id) {
+                    final updatedTask = activity.copyWith(
                       title: titleController.text,
                       description: descriptionController.text,
                       deadline: DateTime.parse(deadlineController.text),
                       prioridade: priority,
-                      user: task.user,
-                      color: task.color,
                     );
 
-                    ref.read(activityProvider.notifier).updateActivity(task, updatedTask);
+                    // Passe o ID da tarefa (ou outro identificador) como primeiro argumento
+                    ref
+                        .read(activityProvider.notifier)
+                        .updateActivity(activity.id , updatedTask);
                     Navigator.pop(context);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Você não tem permissão para atualizar esta tarefa.')),
+                      const SnackBar(
+                          content: Text(
+                              'Você não tem permissão para atualizar esta tarefa.')),
                     );
                   }
                 },
                 child: const Text('Salvar Alterações'),
               ),
+            ),
+
+            // Adicionando o botão para remover a atribuição
+            ElevatedButton(
+              onPressed: () {
+                if (currentUser?.permissao == Permissoes.admin) {
+                  final updatedTask = activity.copyWith(
+                      user: null); // Remove a atribuição do usuário
+
+                  // Passe o ID da tarefa como primeiro argumento
+                  ref
+                      .read(activityProvider.notifier)
+                      .updateActivity(activity.id , updatedTask);
+                  Navigator.pop(context);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text(
+                            'Você não tem permissão para remover a atribuição.')),
+                  );
+                }
+              },
+              child: const Text('Remover Atribuição'),
             ),
           ],
         ),

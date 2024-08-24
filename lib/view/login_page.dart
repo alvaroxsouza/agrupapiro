@@ -59,17 +59,23 @@ class LoginPage extends ConsumerWidget {
 
                           if (email.isEmpty || password.isEmpty) {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Por favor, preencha todos os campos.')),
+                              const SnackBar(
+                                  content: Text(
+                                      'Por favor, preencha todos os campos.')),
                             );
                             return;
                           }
 
-                          final success = await userNotifier.login(email, password);
+                          final success =
+                              await userNotifier.login(email, password);
                           if (success) {
-                            Navigator.of(context).pushReplacementNamed(Routes.HOME);
+                            Navigator.of(context)
+                                .pushReplacementNamed(Routes.HOME);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Falha no login. Verifique suas credenciais.')),
+                              const SnackBar(
+                                  content: Text(
+                                      'Falha no login. Verifique suas credenciais.')),
                             );
                           }
                         },
@@ -89,4 +95,3 @@ class LoginPage extends ConsumerWidget {
     );
   }
 }
-
