@@ -10,12 +10,12 @@ class UsuarioSistemaDao {
 
   Future<int> insertUsuario(UsuarioSistema usuario) async {
     Database db = await dbHelper.database;
-    return await db.insert('Usuario', usuario.toMap());
+    return await db.insert('usuario_sistema', usuario.toMap());
   }
 
   Future<List> getUsuarios() async {
     Database db = await dbHelper.database;
-    var usuario = await db.query('Usuario');
+    var usuario = await db.query('usuario_sistema');
     List usuarios = usuario.isNotEmpty
         ? usuario.map((c) => UsuarioSistema.fromMap(c)).toList()
         : [];
@@ -26,7 +26,7 @@ class UsuarioSistemaDao {
   Future<UsuarioSistema?> getById(String cpf) async {
     Database db = await dbHelper.database;
     List<Map> maps = await db.query(
-      'Usuario',
+      'usuario_sistema',
       where: 'cpf = ?',
       whereArgs: [cpf],
     );
@@ -41,7 +41,7 @@ class UsuarioSistemaDao {
   Future<int> updateUsuario(UsuarioSistema usuario) async {
     Database db = await dbHelper.database;
     return await db.update(
-      'Usuario',
+      'usuario_sistema',
       usuario.toMap(),
       where: 'id = ?',
       whereArgs: [usuario.cpf],
@@ -51,7 +51,7 @@ class UsuarioSistemaDao {
   Future<int> deleteUsuario(String cpf) async {
     Database db = await dbHelper.database;
     return await db.delete(
-      'Usuario',
+      'usuario_sistema',
       where: 'cpf = ?',
       whereArgs: [cpf],
     );

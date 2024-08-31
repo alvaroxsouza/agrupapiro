@@ -1,5 +1,5 @@
 import 'database_grupo_pesquisa.dart';
-import 'database_user.dart';
+import 'database_usuario_sistema.dart';
 
 const String kUSUARIO_GRUPO_PESQUISA_TABLENAME = 'user_grupo_pesquisa';
 

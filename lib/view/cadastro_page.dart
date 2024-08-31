@@ -1,5 +1,7 @@
 import 'package:agrupapiro/components/button_custom.dart';
 import 'package:agrupapiro/components/input_custom.dart';
+import 'package:agrupapiro/controllers/usuario_sistema_controller.dart';
+import 'package:agrupapiro/models/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/providers/user_notifier_provider.dart';
@@ -33,6 +35,8 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
   @override
   Widget build(BuildContext context) {
     final userNotifier = ref.watch(userProvider.notifier);
+    final usuarioCadastroController =
+        ref.watch(usuarioSistemaControllerProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -128,18 +132,39 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
                 colorText: Colors.white,
                 onPressed: () async {
                   if (_formKey.currentState?.validate() ?? false) {
-                    // Criando a conta
-                    final success = await userNotifier.createAccount(
-                      emailController.text,
-                      senhaController.text,
+                    final usuario = UsuarioSistema(
+                      cpf: cpfController.text,
+                      email: emailController.text,
+                      nome: nomeController.text,
+                      senha: senhaController.text,
+                      universidade: 'UFBA',
+                      curso: 'Ciência da Computação',
+                      periodo: "1",
+                      telefone: '71999999999',
                     );
 
-                    if (success) {
-                      Navigator.of(context).pushReplacementNamed('/home');
-                    } else {
+                    try {
+                      final result = await ref
+                          .read(usuarioSistemaControllerProvider.notifier)
+                          .addUsuario(usuario);
+                      if (result > 0) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Usuário cadastrado com sucesso!')),
+                        );
+                        // Navegue para outra página ou limpe o formulário
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Falha ao cadastrar o usuário')),
+                        );
+                      }
+                    } catch (e) {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Falha ao criar conta')),
+                        SnackBar(content: Text('Erro: $e')),
                       );
+                    } finally {
+                      Navigator.pop(context);
                     }
                   }
                 },
@@ -151,4 +176,3 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
     );
   }
 }
-

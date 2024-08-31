@@ -18,7 +18,6 @@ void main() {
     databaseFactory = databaseFactoryFfi;
     final dbHelper = DatabaseHelper();
     dbHelper.database;
-    dbHelper.close();
   } else if (kIsWeb) {
     databaseFactory = databaseFactoryFfiWeb;
   } else {
