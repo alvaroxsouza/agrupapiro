@@ -1,1 +1,1 @@
-const String kDATABASE_NOME = 'database.db';
+const String kDATABASE_NOME = 'agrupapiro_database.db';

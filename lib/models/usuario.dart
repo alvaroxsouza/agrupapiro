@@ -1,4 +1,4 @@
-class Usuario {
+class UsuarioSistema {
   String cpf;
   String nome;
   String email;
@@ -8,7 +8,7 @@ class Usuario {
   String periodo;
   String telefone;
 
-  Usuario({
+  UsuarioSistema({
     required this.cpf,
     required this.nome,
     required this.email,
@@ -19,8 +19,8 @@ class Usuario {
     required this.telefone,
   });
 
-  factory Usuario.fromJson(Map<String, dynamic> json) {
-    return Usuario(
+  factory UsuarioSistema.fromJson(Map<String, dynamic> json) {
+    return UsuarioSistema(
       cpf: json['cpf'],
       nome: json['nome'],
       email: json['email'],
