@@ -55,9 +55,10 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   riverpod_generator: ^2.4.0
-  build_runner: ^2.4.11
+  build_runner: ^2.4.12
   custom_lint: ^0.6.4
   riverpod_lint: ^2.3.10
+  bdd_widget_test: ^1.7.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
