@@ -19,6 +19,19 @@ class Tarefa {
     required this.status,
   });
 
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'titulo': titulo,
+      'descricao': descricao,
+      'data_entrega': dataEntrega,
+      'data_criacao': dataCriacao,
+      'id_grupo_pesquisa': idGrupoPesquisa,
+      'id_usuario': idUsuario,
+      'status': status,
+    };
+  }
+
   factory Tarefa.fromJson(Map<String, dynamic> json) => Tarefa(
         id: json['id'],
         titulo: json['titulo'],

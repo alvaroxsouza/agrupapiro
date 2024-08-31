@@ -1,27 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'usuario_sistema_controller.dart';
+part of 'tarefa_service.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$usuarioSistemaControllerHash() =>
-    r'8000559ead750643a9259d384fff22bae997693a';
+String _$tarefaServiceHash() => r'af1c1deb2ac099e85a11c5f75d2168161ea55150';
 
-/// See also [UsuarioSistemaController].
-@ProviderFor(UsuarioSistemaController)
-final usuarioSistemaControllerProvider =
-    AsyncNotifierProvider<UsuarioSistemaController, void>.internal(
-  UsuarioSistemaController.new,
-  name: r'usuarioSistemaControllerProvider',
+/// See also [tarefaService].
+@ProviderFor(tarefaService)
+final tarefaServiceProvider = Provider<TarefaService>.internal(
+  tarefaService,
+  name: r'tarefaServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$usuarioSistemaControllerHash,
+      : _$tarefaServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$UsuarioSistemaController = AsyncNotifier<void>;
+typedef TarefaServiceRef = ProviderRef<TarefaService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

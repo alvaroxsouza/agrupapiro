@@ -1,9 +1,9 @@
 import 'package:agrupapiro/constants/database_constants/database_grupo_pesquisa.dart';
-import 'package:agrupapiro/constants/database_constants/database_tasks.dart';
+import 'package:agrupapiro/constants/database_constants/database_tarefa.dart';
 
-const String kTAREFA_GRUPO_PESQUISA_TABLENAME = 'TAREFA_grupo_pesquisa';
+const String kTAREFA_GRUPO_PESQUISA_TABLENAME = 'tarefa_grupo_pesquisa';
 
-const String kTAREFA_GRUPO_PESQUISA_TAREFA_ID = 'TAREFA_id';
+const String kTAREFA_GRUPO_PESQUISA_TAREFA_ID = 'tarefa_id';
 const String kTAREFA_GRUPO_PESQUISA_GRUPO_PESQUISA_ID = 'grupo_pesquisa_id';
 
 const String kTAREFA_GRUPO_PESQUISA_CREATE_TABLE = '''
