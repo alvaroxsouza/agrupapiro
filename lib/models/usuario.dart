@@ -44,4 +44,30 @@ class UsuarioSistema {
       'telefone': telefone,
     };
   }
+
+  static fromMap(Map<String, dynamic> map) {
+    return UsuarioSistema(
+      cpf: map['cpf'],
+      nome: map['nome'],
+      email: map['email'],
+      senha: map['senha'],
+      universidade: map['universidade'],
+      curso: map['curso'],
+      periodo: map['periodo'],
+      telefone: map['telefone'],
+    );
+  }
+
+  Map<String, Object?> toMap() {
+    return {
+      'cpf': cpf,
+      'nome': nome,
+      'email': email,
+      'senha': senha,
+      'universidade': universidade,
+      'curso': curso,
+      'periodo': periodo,
+      'telefone': telefone,
+    };
+  }
 }
