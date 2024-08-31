@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
           case Routes.GRUPO:
             return MaterialPageRoute(builder: (_) => GroupPage());
           case Routes.ATIVIDADES:
-            return MaterialPageRoute(builder: (_) => const ActivityPage());
+          // return MaterialPageRoute(builder: (_) => const ActivityPage());
           default:
             return MaterialPageRoute(
               builder: (_) => Scaffold(

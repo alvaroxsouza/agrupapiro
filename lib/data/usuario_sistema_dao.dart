@@ -38,6 +38,21 @@ class UsuarioSistemaDao {
     }
   }
 
+  Future<UsuarioSistema?> getByEmail(String email) async {
+    Database db = await dbHelper.database;
+    List<Map> maps = await db.query(
+      'usuario_sistema',
+      where: 'email = ?',
+      whereArgs: [email],
+    );
+
+    if (maps.isNotEmpty) {
+      return UsuarioSistema.fromMap(maps.first as Map<String, dynamic>);
+    } else {
+      return null;
+    }
+  }
+
   Future<int> updateUsuario(UsuarioSistema usuario) async {
     Database db = await dbHelper.database;
     return await db.update(

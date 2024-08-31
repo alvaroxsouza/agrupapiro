@@ -4,7 +4,6 @@ import 'package:agrupapiro/controllers/usuario_sistema_controller.dart';
 import 'package:agrupapiro/models/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:agrupapiro/providers/user_notifier_provider.dart';
 
 class CadastroPage extends ConsumerStatefulWidget {
   const CadastroPage({super.key});
@@ -34,9 +33,7 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
 
   @override
   Widget build(BuildContext context) {
-    final userNotifier = ref.watch(userProvider.notifier);
-    final usuarioCadastroController =
-        ref.watch(usuarioSistemaControllerProvider);
+    ref.watch(usuarioSistemaControllerProvider);
 
     return Scaffold(
       appBar: AppBar(

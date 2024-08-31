@@ -1,16 +1,16 @@
+import 'package:agrupapiro/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/constants/enum/rotas.dart';
-import 'package:agrupapiro/providers/user_notifier_provider.dart';
 
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userNotifier = ref.watch(userProvider.notifier);
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+    ref.watch(authServiceProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -66,8 +66,10 @@ class LoginPage extends ConsumerWidget {
                             return;
                           }
 
-                          final success =
-                              await userNotifier.login(email, password);
+                          final success = await ref
+                              .read(authServiceProvider)
+                              .login(email, password);
+
                           if (success) {
                             Navigator.of(context)
                                 .pushReplacementNamed(Routes.HOME);

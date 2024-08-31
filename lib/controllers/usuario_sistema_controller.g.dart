@@ -7,7 +7,7 @@ part of 'usuario_sistema_controller.dart';
 // **************************************************************************
 
 String _$usuarioSistemaControllerHash() =>
-    r'8000559ead750643a9259d384fff22bae997693a';
+    r'0cb97793d47f9f3799d079cf8295753e2f85976a';
 
 /// See also [UsuarioSistemaController].
 @ProviderFor(UsuarioSistemaController)

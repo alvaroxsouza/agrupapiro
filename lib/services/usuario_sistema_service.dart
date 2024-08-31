@@ -16,6 +16,8 @@ class UsuarioSistemaService {
 
   Future<UsuarioSistema?> getById(String cpf) => _dao.getById(cpf);
 
+  Future<UsuarioSistema?> getByEmail(String email) => _dao.getByEmail(email);
+
   Future<int> updateUsuario(UsuarioSistema usuario) =>
       _dao.updateUsuario(usuario);
 

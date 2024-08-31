@@ -26,6 +26,11 @@ class UsuarioSistemaController extends _$UsuarioSistemaController {
     return await service.getById(cpf);
   }
 
+  Future<UsuarioSistema?> fetchUsuarioByEmail(String email) async {
+    final service = ref.read(usuarioSistemaServiceProvider);
+    return await service.getByEmail(email);
+  }
+
   Future<int> updateUsuario(UsuarioSistema usuario) async {
     final service = ref.read(usuarioSistemaServiceProvider);
     return await service.updateUsuario(usuario);

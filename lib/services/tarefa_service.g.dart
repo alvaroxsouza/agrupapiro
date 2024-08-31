@@ -6,7 +6,7 @@ part of 'tarefa_service.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tarefaServiceHash() => r'af1c1deb2ac099e85a11c5f75d2168161ea55150';
+String _$tarefaServiceHash() => r'4988ecd4439a7fe2b25d1de6e1be0d4d2cb5a9cf';
 
 /// See also [tarefaService].
 @ProviderFor(tarefaService)
