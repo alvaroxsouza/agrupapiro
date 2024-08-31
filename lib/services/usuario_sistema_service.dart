@@ -1,28 +1,28 @@
 import 'package:agrupapiro/data/usuario_sistema_dao.dart';
 import 'package:agrupapiro/models/usuario.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+part 'usuario_sistema_service.g.dart';
 
 class UsuarioSistemaService {
-  final UsuarioSistemaDao _usuarioSistemaDao;
+  final UsuarioSistemaDao _dao;
 
-  UsuarioSistemaService(this._usuarioSistemaDao);
+  UsuarioSistemaService(this._dao);
 
-  Future<List> buscarTodos() async {
-    return await _usuarioSistemaDao.getUsuarios();
-  }
+  Future<int> insertUsuario(UsuarioSistema usuario) =>
+      _dao.insertUsuario(usuario);
 
-  Future<UsuarioSistema?> buscarPorCpf(String cpf) async {
-    return await _usuarioSistemaDao.getById(cpf);
-  }
+  Future<List> getUsuarios() => _dao.getUsuarios();
 
-  Future<int> inserir(UsuarioSistema usuarioSistema) async {
-    return await _usuarioSistemaDao.insertUsuario(usuarioSistema);
-  }
+  Future<UsuarioSistema?> getById(String cpf) => _dao.getById(cpf);
 
-  Future<int> alterar(UsuarioSistema usuarioSistema) async {
-    return await _usuarioSistemaDao.updateUsuario(usuarioSistema);
-  }
+  Future<int> updateUsuario(UsuarioSistema usuario) =>
+      _dao.updateUsuario(usuario);
 
-  Future<int> excluir(String cpf) async {
-    return await _usuarioSistemaDao.deleteUsuario(cpf);
-  }
+  Future<int> deleteUsuario(String cpf) => _dao.deleteUsuario(cpf);
+}
+
+@Riverpod(keepAlive: true)
+UsuarioSistemaService usuarioSistemaService(UsuarioSistemaServiceRef ref) {
+  return UsuarioSistemaService(ref.watch(usuarioSistemaDaoProvider));
 }

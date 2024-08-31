@@ -1,14 +1,16 @@
 import 'package:agrupapiro/data/database.dart';
 import 'package:agrupapiro/models/usuario.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:sqflite/sqflite.dart';
+
+part 'usuario_sistema_dao.g.dart';
 
 class UsuarioSistemaDao {
   final dbHelper = DatabaseHelper();
 
   Future<int> insertUsuario(UsuarioSistema usuario) async {
     Database db = await dbHelper.database;
-    int id = await db.insert('Usuario', usuario.toMap());
-    return id;
+    return await db.insert('Usuario', usuario.toMap());
   }
 
   Future<List> getUsuarios() async {
@@ -54,4 +56,9 @@ class UsuarioSistemaDao {
       whereArgs: [cpf],
     );
   }
+}
+
+@Riverpod(keepAlive: true)
+UsuarioSistemaDao usuarioSistemaDao(UsuarioSistemaDaoRef ref) {
+  return UsuarioSistemaDao();
 }
