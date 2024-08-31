@@ -1,10 +1,10 @@
-import 'package:agrupapiro/enum/permissoes.dart';
+import 'package:agrupapiro/constants/enum/permissoes.dart';
 import 'package:agrupapiro/models/Activity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/providers/activity_notifier_provider.dart';
 import 'package:agrupapiro/providers/user_notifier_provider.dart';
-import '../enum/prioridade.dart';
+import '../constants/enum/prioridade.dart';
 
 class EditTaskPage extends ConsumerWidget {
   final Activity activity;
@@ -93,7 +93,7 @@ class EditTaskPage extends ConsumerWidget {
                     // Passe o ID da tarefa (ou outro identificador) como primeiro argumento
                     ref
                         .read(activityProvider.notifier)
-                        .updateActivity(activity.id , updatedTask);
+                        .updateActivity(activity.id, updatedTask);
                     Navigator.pop(context);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -117,7 +117,7 @@ class EditTaskPage extends ConsumerWidget {
                   // Passe o ID da tarefa como primeiro argumento
                   ref
                       .read(activityProvider.notifier)
-                      .updateActivity(activity.id , updatedTask);
+                      .updateActivity(activity.id, updatedTask);
                   Navigator.pop(context);
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(

@@ -1,4 +1,4 @@
-import 'package:agrupapiro/enum/permissoes.dart';
+import 'package:agrupapiro/constants/enum/permissoes.dart';
 import 'package:agrupapiro/models/user.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

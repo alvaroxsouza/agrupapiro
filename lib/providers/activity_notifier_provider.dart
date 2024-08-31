@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/models/Activity.dart';
-import '../enum/status_activity.dart';
+import '../constants/enum/status_activity.dart';
 
 class ActivityNotifier extends StateNotifier<List<Activity>> {
   ActivityNotifier() : super([]);
@@ -23,7 +23,10 @@ class ActivityNotifier extends StateNotifier<List<Activity>> {
   void updateStatus(int id, Status newStatus) {
     state = [
       for (final activity in state)
-        if (activity.id == id) activity.copyWith(status: newStatus) else activity,
+        if (activity.id == id)
+          activity.copyWith(status: newStatus)
+        else
+          activity,
     ];
   }
 }

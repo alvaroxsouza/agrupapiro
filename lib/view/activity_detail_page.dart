@@ -1,5 +1,5 @@
-import 'package:agrupapiro/enum/permissoes.dart';
-import 'package:agrupapiro/enum/status_activity.dart';
+import 'package:agrupapiro/constants/enum/permissoes.dart';
+import 'package:agrupapiro/constants/enum/status_activity.dart';
 import 'package:agrupapiro/models/Activity.dart';
 import 'package:agrupapiro/models/user.dart';
 import 'package:agrupapiro/providers/activity_notifier_provider.dart';
@@ -20,8 +20,6 @@ class ActivityDetailsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(userProvider);
     final users = ref.watch(usersProvider);
-
-    
 
     return Scaffold(
       backgroundColor: activity.color.shade50,

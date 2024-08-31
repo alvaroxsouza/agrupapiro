@@ -1,4 +1,4 @@
-import 'package:agrupapiro/enum/rotas.dart';
+import 'package:agrupapiro/constants/enum/rotas.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

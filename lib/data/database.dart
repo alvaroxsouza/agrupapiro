@@ -1,9 +1,9 @@
-import 'package:agrupapiro/constants/database.dart';
-import 'package:agrupapiro/constants/database_grupo_pesquisa.dart';
-import 'package:agrupapiro/constants/database_task_grupo_pesquisa.dart';
-import 'package:agrupapiro/constants/database_tasks.dart';
-import 'package:agrupapiro/constants/database_user.dart';
-import 'package:agrupapiro/constants/database_user_grupo_pesquisa.dart';
+import 'package:agrupapiro/constants/database_constants/database.dart';
+import 'package:agrupapiro/constants/database_constants/database_grupo_pesquisa.dart';
+import 'package:agrupapiro/constants/database_constants/database_task_grupo_pesquisa.dart';
+import 'package:agrupapiro/constants/database_constants/database_tasks.dart';
+import 'package:agrupapiro/constants/database_constants/database_user.dart';
+import 'package:agrupapiro/constants/database_constants/database_user_grupo_pesquisa.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

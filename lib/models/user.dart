@@ -1,4 +1,4 @@
-import 'package:agrupapiro/enum/permissoes.dart';
+import 'package:agrupapiro/constants/enum/permissoes.dart';
 
 class User {
   final String name;
@@ -9,14 +9,14 @@ class User {
 
   var status;
 
-  static var value; 
+  static var value;
 
   User({
     required this.name,
     required this.id,
     required this.email,
     required this.password,
-    required this.permissao,  
+    required this.permissao,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -38,9 +38,7 @@ class User {
       'id': id,
       'email': email,
       'password': password,
-      'permissao': permissao.toString().split('.').last,  
+      'permissao': permissao.toString().split('.').last,
     };
   }
 }
-
-

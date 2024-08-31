@@ -1,5 +1,5 @@
-import 'package:agrupapiro/enum/prioridade.dart';
-import 'package:agrupapiro/enum/status_activity.dart'; // Nova importação para status
+import 'package:agrupapiro/constants/enum/prioridade.dart';
+import 'package:agrupapiro/constants/enum/status_activity.dart'; // Nova importação para status
 import 'package:agrupapiro/models/user.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,6 @@ class Activity {
   final User? assignedMember; // Novo campo para membro atribuído
 
   Activity({
-
     required this.id,
     required this.title,
     required this.description,
@@ -27,9 +26,9 @@ class Activity {
     this.assignedMember,
   });
 
- // get id => null;
+  // get id => null;
 
-   Activity copyWith({
+  Activity copyWith({
     int? id, // Adicionando o id ao método copyWith
     String? title,
     String? description,

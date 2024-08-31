@@ -1,5 +1,5 @@
-import 'package:agrupapiro/enum/permissoes.dart';
-import 'package:agrupapiro/enum/status_activity.dart';
+import 'package:agrupapiro/constants/enum/permissoes.dart';
+import 'package:agrupapiro/constants/enum/status_activity.dart';
 import 'package:agrupapiro/models/Activity.dart';
 import 'package:agrupapiro/providers/activity_notifier_provider.dart';
 import 'package:agrupapiro/providers/user_notifier_provider.dart';
@@ -7,7 +7,7 @@ import 'package:agrupapiro/providers/users_notifier_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/models/user.dart';
-import '../enum/prioridade.dart';
+import '../constants/enum/prioridade.dart';
 
 class CreateTaskPage extends ConsumerWidget {
   final TextEditingController _titleController = TextEditingController();

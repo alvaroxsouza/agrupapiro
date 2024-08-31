@@ -8,7 +8,7 @@ import 'package:agrupapiro/view/group_page.dart';
 import 'package:agrupapiro/view/home_page.dart';
 import 'package:agrupapiro/view/login_page.dart';
 import 'package:agrupapiro/view/cadastro_page.dart';
-import 'package:agrupapiro/enum/rotas.dart';
+import 'package:agrupapiro/constants/enum/rotas.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:sqflite_common_ffi_web/sqflite_ffi_web.dart';
 
@@ -17,7 +17,6 @@ void main() {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
     final dbHelper = DatabaseHelper();
-    dbHelper.printDatabasePath();
     dbHelper.database;
     dbHelper.close();
   } else if (kIsWeb) {
@@ -25,6 +24,7 @@ void main() {
   } else {
     databaseFactory = databaseFactory;
     final dbHelper = DatabaseHelper();
+    dbHelper.database;
   }
   runApp(
     const ProviderScope(

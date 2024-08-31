@@ -1,5 +1,5 @@
-import 'package:agrupapiro/constants/database_grupo_pesquisa.dart';
-import 'package:agrupapiro/constants/database_tasks.dart';
+import 'package:agrupapiro/constants/database_constants/database_grupo_pesquisa.dart';
+import 'package:agrupapiro/constants/database_constants/database_tasks.dart';
 
 const String kTAREFA_GRUPO_PESQUISA_TABLENAME = 'TAREFA_grupo_pesquisa';
 
