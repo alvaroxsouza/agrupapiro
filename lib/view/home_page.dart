@@ -73,8 +73,6 @@ class HomePage extends ConsumerWidget {
                   return const Center(child: Text('Nenhum grupo encontrado'));
                 } else {
                   final groups = groupSnapshot.data!;
-                  print(groups);
-                  print(groups.length);
                   return ListView.builder(
                     itemCount: groups.length, // Agora com base nos dados reais
                     itemBuilder: (context, index) {

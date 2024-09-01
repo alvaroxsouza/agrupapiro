@@ -13,7 +13,7 @@ class TarefaDao {
 
   Future<int> insertTarefa(Tarefa tarefa) async {
     Database db = await dbHelper.database;
-    return await db.insert('Tarefas', tarefa.toMap());
+    return await db.insert(kTAREFA_TABLE_NAME, tarefa.toMap());
   }
 
   Future<int> associarTarefaGrupo(String idTarefa, String idGrupo) async {
