@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/view/create_group_page.dart';
-import 'package:agrupapiro/view/activity_page.dart';
 import 'package:agrupapiro/view/group_page.dart';
 import 'package:agrupapiro/view/home_page.dart';
 import 'package:agrupapiro/view/login_page.dart';

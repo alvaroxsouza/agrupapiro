@@ -18,6 +18,15 @@ class GrupoPesquisaController extends _$GrupoPesquisaController {
     return await grupoPesquisaService.insertGrupoPesquisa(grupoPesquisa);
   }
 
+  Future<int> insertGrupoPesquisaUsuarioAdmin(
+      String idGrupoPesquisa, String idAdmin) async {
+    final grupoPesquisaService = ref.read(grupoPesquisaServiceProvider);
+    return await grupoPesquisaService.insertGrupoPesquisaUsuarioAdmin(
+      idGrupoPesquisa,
+      idAdmin,
+    );
+  }
+
   Future<List> getGrupoPesquisa() async {
     final grupoPesquisaService = ref.read(grupoPesquisaServiceProvider);
     return await grupoPesquisaService.getGrupoPesquisa();

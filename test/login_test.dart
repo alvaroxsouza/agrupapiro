@@ -17,27 +17,34 @@ void main() {
 
     testWidgets('Successful Login', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'mail@mail.com', 0); // Campo de email (índice 0)
-      await iEnterIntoInputField(tester, 'password', 1); // Campo de senha (índice 1)
+      await iEnterIntoInputField(
+          tester, 'mail@mail.com', 0); // Campo de email (índice 0)
+      await iEnterIntoInputField(
+          tester, 'password', 1); // Campo de senha (índice 1)
       await iTapButton(tester, 'Entrar'); // Botão de login
-      await iShouldBeRedirectedToTheApplicationsHomepage(tester); // Verificação de redirecionamento
+      await iShouldBeRedirectedToTheApplicationsHomepage(
+          tester); // Verificação de redirecionamento
     });
 
     testWidgets('Invalid Username', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'wronguser@mail.com', 0); // Email inválido (índice 0)
+      await iEnterIntoInputField(
+          tester, 'wronguser@mail.com', 0); // Email inválido (índice 0)
       await iEnterIntoInputField(tester, 'password', 1); // Senha (índice 1)
       await iTapButton(tester, 'Entrar');
-      await iSeeText(tester, 'Falha no login. Verifique suas credenciais.'); // Mensagem de erro
+      await iSeeText(tester,
+          'Falha no login. Verifique suas credenciais.'); // Mensagem de erro
     });
 
     testWidgets('Invalid Password', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'mail@mail.com', 0); // Email (índice 0)
-      await iEnterIntoInputField(tester, 'wrongpassword', 1); // Senha inválida (índice 1)
+      await iEnterIntoInputField(
+          tester, 'mail@mail.com', 0); // Email (índice 0)
+      await iEnterIntoInputField(
+          tester, 'wrongpassword', 1); // Senha inválida (índice 1)
       await iTapButton(tester, 'Entrar');
-      await iSeeText(tester, 'Falha no login. Verifique suas credenciais.'); // Mensagem de erro
+      await iSeeText(tester,
+          'Falha no login. Verifique suas credenciais.'); // Mensagem de erro
     });
-
   });
 }

@@ -8,12 +8,13 @@ Future<void> iAmLoggedInAs(WidgetTester tester, String userRole) async {
 
   //TODO: Adicionar o login
   // Define o estado de autenticação como logado com o usuário especificado
-  final authService = container.read(authServiceProvider.notifier);
+  final authService = container.read(authServiceProvider);
 
   // Simula um usuário logado de acordo com a função fornecida
   switch (userRole) {
     case 'Administrador Geral':
-      await authService.login('admin@example.com', 'password'); // Ajuste conforme necessário
+      await authService.login(
+          'admin@example.com', 'password'); // Ajuste conforme necessário
       break;
     // Adicione outros casos se houver outros tipos de usuários
     default:

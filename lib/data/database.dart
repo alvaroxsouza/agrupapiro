@@ -50,6 +50,18 @@ class DatabaseHelper {
     await db.execute(kTAREFA_GRUPO_PESQUISA_CREATE_TABLE);
   }
 
+  Future<Database> initInMemoryDatabase() async {
+    return await openDatabase(
+      inMemoryDatabasePath,
+      version: 1,
+      onCreate: (db, version) async {
+        await db.execute(
+          kUSUARIO_CREATE_TABLE,
+        );
+      },
+    );
+  }
+
   Future<void> printDatabasePath() async {
     String path = join(await getDatabasesPath(), kDATABASE_NOME);
     print('Caminho do banco de dados: $path');

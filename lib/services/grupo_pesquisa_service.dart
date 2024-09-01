@@ -9,8 +9,9 @@ class GrupoPesquisaService {
 
   GrupoPesquisaService(this._dao);
 
-  Future<int> insertGrupoPesquisa(GrupoPesquisa grupoPesquisa) =>
-      _dao.insertGrupoPesquisa(grupoPesquisa);
+  Future<int> insertGrupoPesquisa(GrupoPesquisa grupoPesquisa) async {
+    return await _dao.insertGrupoPesquisa(grupoPesquisa);
+  }
 
   Future<List> getGrupoPesquisa() => _dao.getGrupoPesquisa();
 
@@ -20,6 +21,9 @@ class GrupoPesquisaService {
       _dao.updateGrupoPesquisa(grupoPesquisa);
 
   Future<int> deleteGrupoPesquisa(String id) => _dao.deleteGrupoPesquisa(id);
+
+  Future<int> insertGrupoPesquisaUsuarioAdmin(String id, String idAdmin) =>
+      _dao.insertGrupoPesquisaUsuarioAdmin(id, idAdmin);
 }
 
 @Riverpod(keepAlive: true)

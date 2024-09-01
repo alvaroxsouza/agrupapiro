@@ -15,7 +15,7 @@ class HomePage extends ConsumerWidget {
           children: [
             UserAccountsDrawerHeader(
                 accountName: Text("usuario"),
-                accountEmail: Text("enmail@gmail.com")),
+                accountEmail: Text("email@gmail.com")),
             ListTile(
               leading: Icon(Icons.home),
               title: Text("Inicio"),

@@ -1,7 +1,10 @@
 import 'package:agrupapiro/controllers/grupo_pesquisa_controller.dart';
 import 'package:agrupapiro/models/grupo_pesquisa.dart';
+import 'package:agrupapiro/repositories/sessao_dao.dart';
+import 'package:agrupapiro/services/sessao_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 class CreateGroupPage extends ConsumerStatefulWidget {
@@ -33,25 +36,43 @@ class _CreateGroupPageState extends ConsumerState<CreateGroupPage> {
       );
 
       try {
-        final result = await ref
-            .read(grupoPesquisaControllerProvider.notifier)
-            .insertGrupoPesquisa(grupoPesquisa);
+        // Aguarda a resolução do Future para obter o token do usuário
+        String? tokenUsuario =
+            await ref.read(sessaoServiceProvider).getUserToken();
 
-        if (!mounted) return;
+        if (context.mounted) {
+          final resultInsertGrupoPesquisa = await ref
+              .read(grupoPesquisaControllerProvider.notifier)
+              .insertGrupoPesquisa(grupoPesquisa);
 
-        if (result > 0) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Grupo de Pesquisa cadastrado com sucesso!'),
-            ),
-          );
-          // Navegue para outra página ou limpe o formulário
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Falha ao cadastrar o grupo de pesquisa'),
-            ),
-          );
+          String idAdmin = '';
+          if (tokenUsuario != null) {
+            idAdmin = tokenUsuario;
+          }
+
+          if (idAdmin.isNotEmpty) {
+            final resultInsertGrupoPesquisaUsuarioAdmin = await ref
+                .read(grupoPesquisaControllerProvider.notifier)
+                .insertGrupoPesquisaUsuarioAdmin(
+                  grupoPesquisa.id,
+                  idAdmin,
+                );
+            if (resultInsertGrupoPesquisa > 0 &&
+                resultInsertGrupoPesquisaUsuarioAdmin > 0) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Grupo de Pesquisa cadastrado com sucesso!'),
+                ),
+              );
+              // Navegue para outra página ou limpe o formulário
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Falha ao cadastrar o grupo de pesquisa'),
+                ),
+              );
+            }
+          }
         }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(

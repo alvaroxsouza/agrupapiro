@@ -1,4 +1,5 @@
 import 'package:agrupapiro/constants/database_constants/database_grupo_pesquisa.dart';
+import 'package:agrupapiro/constants/database_constants/database_usuario_sistema_grupo_pesquisa.dart';
 import 'package:agrupapiro/data/database.dart';
 import 'package:agrupapiro/models/grupo_pesquisa.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -49,6 +50,17 @@ class GrupoPesquisaDao {
       kGRUPO_PESQUISA_TABLE_NAME,
       where: 'id = ?',
       whereArgs: [id],
+    );
+  }
+
+  insertGrupoPesquisaUsuarioAdmin(String id, String idAdmin) async {
+    Database db = await dbHelper.database;
+    return await db.insert(
+      kUSUARIO_GRUPO_PESQUISA_TABLENAME,
+      {
+        kUSUARIO_GRUPO_PESQUISA_GRUPO_PESQUISA_ID: id,
+        kUSUARIO_GRUPO_PESQUISA_CPF: idAdmin
+      },
     );
   }
 }
