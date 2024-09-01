@@ -1,5 +1,5 @@
-import 'package:agrupapiro/data/usuario_sistema_dao.dart';
 import 'package:agrupapiro/models/usuario.dart';
+import 'package:agrupapiro/repositories/usuario_sistema_dao.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'usuario_sistema_service.g.dart';

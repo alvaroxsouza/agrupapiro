@@ -1,5 +1,5 @@
-import 'package:agrupapiro/data/grupo_pesquisa_dao.dart';
 import 'package:agrupapiro/models/grupo_pesquisa.dart';
+import 'package:agrupapiro/repositories/grupo_pesquisa_dao.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'grupo_pesquisa_service.g.dart';
