@@ -51,7 +51,6 @@ class HomePage extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final group = groups[index];
                 return GroupContainer(
-                  key: ValueKey(group.id),
                   id: group.id,
                   nome: group.nome,
                   sigla: group.sigla,

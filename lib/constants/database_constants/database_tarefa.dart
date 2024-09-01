@@ -4,6 +4,8 @@ const String kTAREFA_COLUMN_TITULO = 'titulo';
 const String kTAREFA_COLUMN_DESCRICAO = 'descricao';
 const String kTAREFA_COLUMN_DATA_ENTREGA = 'data_entrega';
 const String kTAREFA_COLUMN_DATA_CRIACAO = 'data_criacao';
+const String kTAREFA_COLUMN_ID_GRUPO = 'id_grupo';
+const String kTAREFA_COLUMN_ID_USUARIO = 'id_usuario';
 const String kTAREFA_COLUMN_STATUS = 'status';
 
 const String kTAREFA_CREATE_TABLE = '''
@@ -13,6 +15,8 @@ const String kTAREFA_CREATE_TABLE = '''
     $kTAREFA_COLUMN_DESCRICAO TEXT NOT NULL,
     $kTAREFA_COLUMN_DATA_ENTREGA TEXT NOT NULL,
     $kTAREFA_COLUMN_DATA_CRIACAO TEXT NOT NULL,
+    $kTAREFA_COLUMN_ID_GRUPO TEXT NOT NULL,
+    $kTAREFA_COLUMN_ID_USUARIO TEXT,
     $kTAREFA_COLUMN_STATUS TEXT NOT NULL
   );
 ''';

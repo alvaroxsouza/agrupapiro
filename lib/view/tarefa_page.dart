@@ -1,6 +1,7 @@
 import 'package:agrupapiro/constants/enum/rotas.dart';
 import 'package:agrupapiro/models/tarefa.dart';
-import 'package:agrupapiro/repositories/tarefa_dao.dart';
+import 'package:agrupapiro/providers/tarefa_provider.dart';
+import 'package:agrupapiro/view/create_tarefa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,27 +9,21 @@ class TarefaPage extends ConsumerWidget {
   final String idGrupo;
 
   const TarefaPage({
-    Key? key,
+    super.key,
     required this.idGrupo,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final tarefas = ref.watch(tarefaProvider(idGrupo));
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Atividades'),
       ),
-      body: FutureBuilder<List<Tarefa>>(
-        future: ref.watch(tarefaDaoProvider).getTarefasPorGrupo(idGrupo),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Erro ao carregar as tarefas'));
-          } else {
-            final List<Tarefa> tarefas = snapshot.data!;
-
-            return ListView.builder(
+      body: tarefas.isEmpty
+          ? const Center(child: Text('Nenhuma tarefa encontrada'))
+          : ListView.builder(
               itemCount: tarefas.length,
               itemBuilder: (context, index) {
                 final Tarefa tarefa = tarefas[index];
@@ -38,20 +33,24 @@ class TarefaPage extends ConsumerWidget {
                   subtitle: Text(tarefa.descricao),
                   trailing: IconButton(
                     icon: const Icon(Icons.delete),
-                    onPressed: () {
-                      ref.watch(tarefaDaoProvider).deleteTarefa(tarefa.id);
+                    onPressed: () async {
+                      await ref
+                          .read(tarefaProvider(idGrupo).notifier)
+                          .deleteTarefa(tarefa.id);
                     },
                   ),
                 );
               },
-            );
-          }
-        },
-      ),
+            ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.of(context)
-              .pushNamed(Routes.CRIAR_TAREFA, arguments: idGrupo);
+        onPressed: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => CreateTarefa(idGrupo: idGrupo),
+            ),
+          );
+
+          ref.read(tarefaProvider(idGrupo).notifier).refreshTarefas();
         },
         child: const Icon(Icons.add),
       ),

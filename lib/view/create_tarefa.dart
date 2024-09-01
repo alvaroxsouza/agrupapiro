@@ -60,19 +60,16 @@ class _CreateTarefaState extends ConsumerState<CreateTarefa> {
         dataEntrega: dataEntregaController.text,
         dataCriacao: dataCriacaoController.text,
         status: statusSelecionado ?? 'NÃO FEITO',
+        idGrupo: widget.idGrupo,
       );
 
       try {
         final result =
             await ref.read(tarefaControllerProvider.notifier).addTarefa(tarefa);
 
-        final resultAssociarTarefaGrupo = await ref
-            .read(tarefaControllerProvider.notifier)
-            .associarTarefaGrupo(tarefa.id, widget.idGrupo);
-
         if (!mounted) return;
 
-        if (result > 0 && resultAssociarTarefaGrupo > 0) {
+        if (result > 0) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text('Tarefa cadastrada com sucesso!'),

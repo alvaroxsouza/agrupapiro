@@ -64,15 +64,19 @@ class MyApp extends StatelessWidget {
           case Routes.CRIAR:
             return MaterialPageRoute(builder: (_) => const CreateGroupPage());
           case Routes.GRUPO:
-            return MaterialPageRoute(builder: (_) => GroupPage());
-          case Routes.ATIVIDADES:
+            return MaterialPageRoute(
+              builder: (_) => GroupPage(
+                grupoId: '',
+                nome: '',
+              ),
+            );
+          case Routes.TAREFA:
             return MaterialPageRoute(
               builder: (_) => const TarefaPage(
                 idGrupo: '',
               ),
             );
           case Routes.CRIAR_TAREFA:
-            final idGrupo = settings.arguments as String;
             return MaterialPageRoute(
               builder: (_) => CreateTarefa(
                 idGrupo: '',

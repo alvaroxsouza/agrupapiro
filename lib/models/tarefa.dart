@@ -4,6 +4,8 @@ class Tarefa {
   String descricao;
   String dataEntrega;
   String dataCriacao;
+  String idGrupo;
+  String idUsuario;
   String status;
 
   Tarefa({
@@ -12,7 +14,9 @@ class Tarefa {
     required this.descricao,
     required this.dataEntrega,
     required this.dataCriacao,
+    required this.idGrupo,
     required this.status,
+    this.idUsuario = '',
   });
 
   Map<String, dynamic> toMap() {
@@ -21,7 +25,9 @@ class Tarefa {
       'titulo': titulo,
       'descricao': descricao,
       'data_entrega': dataEntrega,
-      'data_criacao': dataCriacao.toString(),
+      'data_criacao': dataCriacao,
+      'id_grupo': idGrupo,
+      'id_usuario': idUsuario,
       'status': status,
     };
   }
@@ -33,6 +39,8 @@ class Tarefa {
       descricao: map['descricao'],
       dataEntrega: map['data_entrega'],
       dataCriacao: map['data_criacao'],
+      idGrupo: map['id_grupo'],
+      idUsuario: map['id_usuario'],
       status: map['status'],
     );
   }
@@ -44,6 +52,7 @@ class Tarefa {
         dataEntrega: json['data_entrega'],
         dataCriacao: json['data_criacao'],
         status: json['status'],
+        idGrupo: json['id_grupo'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,6 +61,8 @@ class Tarefa {
         'descricao': descricao,
         'data_entrega': dataEntrega,
         'data_criacao': dataCriacao,
+        'id_grupo': idGrupo,
+        'id_usuario': idUsuario,
         'status': status,
       };
 }

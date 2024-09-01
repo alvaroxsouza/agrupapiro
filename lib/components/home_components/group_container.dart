@@ -1,3 +1,5 @@
+import 'package:agrupapiro/constants/enum/rotas.dart';
+import 'package:agrupapiro/view/group_page.dart';
 import 'package:flutter/material.dart';
 
 class GroupContainer extends StatelessWidget {
@@ -24,7 +26,14 @@ class GroupContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/group');
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => GroupPage(
+              grupoId: id,
+              nome: nome,
+            ),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.all(5),

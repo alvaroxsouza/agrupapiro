@@ -53,10 +53,8 @@ class TarefaDao {
       final List<Map<String, dynamic>> result = await db.rawQuery(
         '''
       SELECT DISTINCT t.* FROM $kTAREFA_TABLE_NAME t
-      INNER JOIN $kTAREFA_GRUPO_PESQUISA_TABLENAME tgp 
-        ON t.$kTAREFA_COLUMN_ID = tgp.$kTAREFA_GRUPO_PESQUISA_TAREFA_ID
       INNER JOIN $kGRUPO_PESQUISA_TABLE_NAME gp 
-        ON gp.$kGRUPO_PESQUISA_ID = tgp.$kTAREFA_GRUPO_PESQUISA_GRUPO_PESQUISA_ID
+        ON gp.$kGRUPO_PESQUISA_ID = t.$kTAREFA_COLUMN_ID_GRUPO
       WHERE gp.$kGRUPO_PESQUISA_ID = ?
       ''',
         [idGrupo],
@@ -84,7 +82,7 @@ class TarefaDao {
   Future<int> deleteTarefa(String id) async {
     Database db = await dbHelper.database;
     return await db.delete(
-      'Tarefas',
+      kTAREFA_TABLE_NAME,
       where: 'id = ?',
       whereArgs: [id],
     );

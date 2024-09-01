@@ -5,12 +5,14 @@ class ButtonMenuSection extends StatelessWidget {
   final String route;
   final String label;
   final Color color;
+  final Widget widgetComp;
 
   const ButtonMenuSection({
     required this.icon,
     required this.route,
     required this.label,
     required this.color,
+    required this.widgetComp,
     super.key,
   });
 
@@ -18,7 +20,12 @@ class ButtonMenuSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, route);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => widgetComp,
+          ),
+        );
+        ;
       },
       child: Container(
         padding: const EdgeInsets.all(10),
