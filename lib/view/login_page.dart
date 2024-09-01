@@ -21,74 +21,79 @@ class LoginPage extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: SingleChildScrollView(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      labelText: 'Email/Usuário',
-                      hintText: 'Digite seu email/usuário',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Senha',
-                      hintText: 'Digite sua senha',
-                    ),
-                  ),
-                  const SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(Routes.CADASTRO);
-                        },
-                        child: const Text('Cadastrar'),
+            scrollDirection: Axis.vertical,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextField(
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: const InputDecoration(
+                        labelText: 'Email/Usuário',
+                        hintText: 'Digite seu email/usuário',
                       ),
-                      ElevatedButton(
-                        onPressed: () async {
-                          final email = emailController.text.trim();
-                          final password = passwordController.text.trim();
-
-                          if (email.isEmpty || password.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Por favor, preencha todos os campos.')),
-                            );
-                            return;
-                          }
-
-                          final success = await ref
-                              .read(authServiceProvider)
-                              .login(email, password);
-
-                          if (success) {
-                            Navigator.of(context)
-                                .pushReplacementNamed(Routes.HOME);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Falha no login. Verifique suas credenciais.')),
-                            );
-                          }
-                        },
-                        child: const Text('Entrar'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      controller: passwordController,
+                      obscureText: true,
+                      decoration: const InputDecoration(
+                        labelText: 'Senha',
+                        hintText: 'Digite sua senha',
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(Routes.CADASTRO);
+                          },
+                          child: const Text('Cadastrar'),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        ElevatedButton(
+                          onPressed: () async {
+                            final email = emailController.text.trim();
+                            final password = passwordController.text.trim();
+
+                            if (email.isEmpty || password.isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Por favor, preencha todos os campos.')),
+                              );
+                              return;
+                            }
+
+                            final success = await ref
+                                .read(authServiceProvider)
+                                .login(email, password);
+
+                            if (success) {
+                              Navigator.of(context)
+                                  .pushReplacementNamed(Routes.HOME);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Falha no login. Verifique suas credenciais.')),
+                              );
+                            }
+                          },
+                          child: const Text('Entrar'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            minimumSize: const Size(100, 50),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

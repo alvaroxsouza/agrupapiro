@@ -27,7 +27,7 @@ class _CreateGroupPageState extends ConsumerState<CreateGroupPage> {
         nome: nomeController.text,
         sigla: siglaController.text,
         descricao: descricaoController.text,
-        dataCriacao: DateTime.now(),
+        dataCriacao: DateTime.now().toString(),
         instituicao: instituicaoController.text,
         departamento: departamentoController.text,
       );

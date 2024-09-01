@@ -94,152 +94,154 @@ class _CadastroPageState extends ConsumerState<CadastroPage> {
         title: const Text('Cadastro', style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.red,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              InputCustom(
-                label: 'Nome',
-                hint: 'Digite seu nome',
-                controller: nomeController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Nome não pode estar vazio';
-                  }
-                  return null;
-                },
-                onChanged: (value) {},
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'CPF',
-                hint: 'Digite seu CPF',
-                controller: cpfController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'CPF não pode estar vazio';
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  // Atualização do valor do CPF
-                },
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'Email',
-                hint: 'Digite seu email',
-                controller: emailController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Email não pode estar vazio';
-                  }
-                  return null;
-                },
-                onChanged: (value) {},
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'Senha',
-                hint: 'Digite sua senha',
-                password: true,
-                controller: senhaController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Senha não pode estar vazia';
-                  }
-                  return null;
-                },
-                onChanged: (value) {},
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'Digite novamente sua senha',
-                hint: 'Digite novamente a sua senha',
-                password: true,
-                controller: confirmarSenhaController,
-                validator: (value) {
-                  if (value != senhaController.text) {
-                    return 'As senhas não coincidem';
-                  }
-                  return null;
-                },
-                onChanged: (value) {},
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'Universidade',
-                hint: 'Digite sua universidade - Ex.: UFBA',
-                password: false,
-                controller: universidadeController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Universidade não pode estar vazia';
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  // Atualização do valor da senha
-                },
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'Curso',
-                hint: 'Digite seu curso - Ex.: Ciência da Computação',
-                password: false,
-                controller: cursoController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Curso não pode estar vazio';
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  // Atualização do valor da senha
-                },
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'Período',
-                hint: 'Digite seu período - Ex.: 1',
-                password: false,
-                controller: periodoController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Período não pode estar vazio';
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  // Atualização do valor da senha
-                },
-              ),
-              const SizedBox(height: 16),
-              InputCustom(
-                label: 'Telefone',
-                hint: 'Digite seu telefone - Ex.: 71999999999',
-                password: false,
-                controller: telefoneController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Telefone não pode estar vazio';
-                  }
-                  return null;
-                },
-                onChanged: (value) {
-                  // Atualização do valor da senha
-                },
-              ),
-              const SizedBox(height: 16),
-              ButtonCustom(
-                label: 'Cadastrar',
-                color: Colors.red,
-                colorText: Colors.white,
-                onPressed: _cadastrarUsuario,
-              ),
-            ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                InputCustom(
+                  label: 'Nome',
+                  hint: 'Digite seu nome',
+                  controller: nomeController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Nome não pode estar vazio';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'CPF',
+                  hint: 'Digite seu CPF',
+                  controller: cpfController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'CPF não pode estar vazio';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    // Atualização do valor do CPF
+                  },
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'Email',
+                  hint: 'Digite seu email',
+                  controller: emailController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email não pode estar vazio';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'Senha',
+                  hint: 'Digite sua senha',
+                  password: true,
+                  controller: senhaController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Senha não pode estar vazia';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'Digite novamente sua senha',
+                  hint: 'Digite novamente a sua senha',
+                  password: true,
+                  controller: confirmarSenhaController,
+                  validator: (value) {
+                    if (value != senhaController.text) {
+                      return 'As senhas não coincidem';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {},
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'Universidade',
+                  hint: 'Digite sua universidade - Ex.: UFBA',
+                  password: false,
+                  controller: universidadeController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Universidade não pode estar vazia';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    // Atualização do valor da senha
+                  },
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'Curso',
+                  hint: 'Digite seu curso - Ex.: Ciência da Computação',
+                  password: false,
+                  controller: cursoController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Curso não pode estar vazio';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    // Atualização do valor da senha
+                  },
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'Período',
+                  hint: 'Digite seu período - Ex.: 1',
+                  password: false,
+                  controller: periodoController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Período não pode estar vazio';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    // Atualização do valor da senha
+                  },
+                ),
+                const SizedBox(height: 16),
+                InputCustom(
+                  label: 'Telefone',
+                  hint: 'Digite seu telefone - Ex.: 71999999999',
+                  password: false,
+                  controller: telefoneController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Telefone não pode estar vazio';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    // Atualização do valor da senha
+                  },
+                ),
+                const SizedBox(height: 16),
+                ButtonCustom(
+                  label: 'Cadastrar',
+                  color: Colors.red,
+                  colorText: Colors.white,
+                  onPressed: _cadastrarUsuario,
+                ),
+              ],
+            ),
           ),
         ),
       ),

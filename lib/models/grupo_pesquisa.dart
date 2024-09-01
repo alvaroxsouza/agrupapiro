@@ -4,7 +4,7 @@ class GrupoPesquisa {
   final String sigla;
 
   final String descricao;
-  final DateTime dataCriacao;
+  final String dataCriacao;
   final String instituicao;
   final String departamento;
 
