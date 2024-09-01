@@ -39,6 +39,8 @@ testWidgets('Successful Account Creation', (tester) async {
   // Verificar se a mensagem de sucesso aparece
   await iSeeASuccessMessage(tester, 'Usuário cadastrado com sucesso!');
 
+  //TODO: Implementar banco em memória
+
   // Verificar se um email de confirmação foi enviado
   await aConfirmationEmailShouldBeSentTo(tester, 'mail@mail.com');
 });
@@ -60,7 +62,7 @@ testWidgets('Successful Account Creation', (tester) async {
 
       // Clicar no botão '
       await iTapButton(tester, 'Cadastrar'); // Texto do botão atualizado para 'Cadastrar'
-      
+
       await iSeeAnErrorMessage(tester, 'Email inválido');
     });
   });

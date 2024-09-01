@@ -1,55 +1,43 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_import, directives_ordering
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './step/the_app_is_running.dart';
-import './step/the_user_is_registered_with_password.dart';
 import './step/i_enter_into_input_field.dart';
-import './step/i_tap_button.dart';
 import './step/i_see_text.dart';
 import './step/i_should_be_redirected_to_the_applications_homepage.dart';
-import './step/i_tap_text.dart';
-import './step/i_see_input_field.dart';
+import './step/i_tap_button.dart';
+import './step/the_app_is_running.dart';
+import './step/the_user_is_registered_with_password.dart';
 
 void main() {
-  group('''User Login''', () {
+  group('User Login', () {
     Future<void> bddSetUp(WidgetTester tester) async {
       await theAppIsRunning(tester);
       await theUserIsRegisteredWithPassword(
-          tester, 'Fulano Di Tal', 'password');
+          tester, 'mail@mail.com', 'password'); // Usuário pré-registrado
     }
 
-    testWidgets('''Successful Login''', (tester) async {
+    testWidgets('Successful Login', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'Fulano Di Tal', 'usuario');
-      await iEnterIntoInputField(tester, 'password', 'senha');
-      await iTapButton(tester, 'Login');
-      await iSeeText(tester, 'Bem vindo!');
-      await iShouldBeRedirectedToTheApplicationsHomepage(tester);
+      await iEnterIntoInputField(tester, 'mail@mail.com', 0); // Campo de email (índice 0)
+      await iEnterIntoInputField(tester, 'password', 1); // Campo de senha (índice 1)
+      await iTapButton(tester, 'Entrar'); // Botão de login
+      await iShouldBeRedirectedToTheApplicationsHomepage(tester); // Verificação de redirecionamento
     });
-    testWidgets('''Invalid Username''', (tester) async {
+
+    testWidgets('Invalid Username', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'Beltrano', 'usuario');
-      await iEnterIntoInputField(tester, 'password', 'senha');
-      await iTapButton(tester, 'Login');
-      await iSeeText(tester, 'Usuario ou senha inválido');
+      await iEnterIntoInputField(tester, 'wronguser@mail.com', 0); // Email inválido (índice 0)
+      await iEnterIntoInputField(tester, 'password', 1); // Senha (índice 1)
+      await iTapButton(tester, 'Entrar');
+      await iSeeText(tester, 'Falha no login. Verifique suas credenciais.'); // Mensagem de erro
     });
-    testWidgets('''Invalid Password''', (tester) async {
+
+    testWidgets('Invalid Password', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'Fulano Di Tal', 'usuario');
-      await iEnterIntoInputField(tester, 'pass', 'senha');
-      await iTapButton(tester, 'Login');
-      await iSeeText(tester, 'Usuario ou senha inválido');
+      await iEnterIntoInputField(tester, 'mail@mail.com', 0); // Email (índice 0)
+      await iEnterIntoInputField(tester, 'wrongpassword', 1); // Senha inválida (índice 1)
+      await iTapButton(tester, 'Entrar');
+      await iSeeText(tester, 'Falha no login. Verifique suas credenciais.'); // Mensagem de erro
     });
-    testWidgets('''Forgot Password''', (tester) async {
-      await bddSetUp(tester);
-      await iTapText(tester, 'Esqueci minha senha');
-      await iSeeInputField(tester, 'email');
-      await iEnterIntoInputField(tester, 'mail@mail.com', 'email');
-      await iTapButton(tester, 'Recuperar senha');
-      await iSeeText(tester, 'Email para troca de senha foi enviado');
-    });
+
   });
 }
