@@ -1,7 +1,7 @@
-import 'package:agrupapiro/constants/enum/rotas.dart';
 import 'package:agrupapiro/models/tarefa.dart';
 import 'package:agrupapiro/providers/tarefa_provider.dart';
 import 'package:agrupapiro/view/create_tarefa.dart';
+import 'package:agrupapiro/view/edit_tarefa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -31,13 +31,33 @@ class TarefaPage extends ConsumerWidget {
                 return ListTile(
                   title: Text(tarefa.titulo),
                   subtitle: Text(tarefa.descricao),
-                  trailing: IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () async {
-                      await ref
-                          .read(tarefaProvider(idGrupo).notifier)
-                          .deleteTarefa(tarefa.id);
-                    },
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.delete),
+                        onPressed: () async {
+                          await ref
+                              .read(tarefaProvider(idGrupo).notifier)
+                              .deleteTarefa(tarefa.id);
+                        },
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.edit),
+                        onPressed: () async {
+                          await Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EditTarefa(
+                                tarefa: tarefa,
+                              ),
+                            ),
+                          );
+                          ref
+                              .read(tarefaProvider(idGrupo).notifier)
+                              .refreshTarefas();
+                        },
+                      ),
+                    ],
                   ),
                 );
               },
