@@ -14,7 +14,8 @@ class HomePage extends ConsumerWidget {
         child: Column(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text("usuario"), accountEmail: Text("enmail@gmail.com")),
+                accountName: Text("usuario"),
+                accountEmail: Text("enmail@gmail.com")),
             ListTile(
               leading: Icon(Icons.home),
               title: Text("Inicio"),
@@ -40,19 +41,7 @@ class HomePage extends ConsumerWidget {
       body: const Center(
         child: SingleChildScrollView(
           child: Column(
-            children: [
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-              GroupContainer(),
-            ],
+            children: [],
           ),
         ),
       ),
@@ -70,4 +59,3 @@ class HomePage extends ConsumerWidget {
     );
   }
 }
-

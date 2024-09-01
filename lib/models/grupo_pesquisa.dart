@@ -19,5 +19,35 @@ class GrupoPesquisa {
     required this.departamento,
   });
 
-  // Métodos adicionais, como para atualizar ou adicionar projetos, membros, etc.
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'nome': nome,
+      'sigla': sigla,
+      'descricao': descricao,
+      'data_criacao': dataCriacao,
+      'instituicao': instituicao,
+      'departamento': departamento,
+    };
+  }
+
+  factory GrupoPesquisa.fromJson(Map<String, dynamic> json) => GrupoPesquisa(
+        id: json['id'],
+        nome: json['nome'],
+        sigla: json['sigla'],
+        descricao: json['descricao'],
+        dataCriacao: json['data_criacao'],
+        instituicao: json['instituicao'],
+        departamento: json['departamento'],
+      );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'nome': nome,
+        'sigla': sigla,
+        'descricao': descricao,
+        'data_criacao': dataCriacao,
+        'instituicao': instituicao,
+        'departamento': departamento,
+      };
 }

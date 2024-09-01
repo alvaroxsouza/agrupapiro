@@ -32,6 +32,19 @@ class Tarefa {
     };
   }
 
+  factory Tarefa.fromMap(Map<String, dynamic> map) {
+    return Tarefa(
+      id: map['id'],
+      titulo: map['titulo'],
+      descricao: map['descricao'],
+      dataEntrega: map['data_entrega'],
+      dataCriacao: map['data_criacao'],
+      idGrupoPesquisa: map['id_grupo_pesquisa'],
+      idUsuario: map['id_usuario'],
+      status: map['status'],
+    );
+  }
+
   factory Tarefa.fromJson(Map<String, dynamic> json) => Tarefa(
         id: json['id'],
         titulo: json['titulo'],

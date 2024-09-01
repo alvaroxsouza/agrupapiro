@@ -17,7 +17,7 @@ class TarefaService {
 
   Future<int> updateTarefa(Tarefa tarefa) => _dao.updateTarefa(tarefa);
 
-  Future<int> deleteTarega(String id) => _dao.deleteTarefa(id);
+  Future<int> deleteTarefa(String id) => _dao.deleteTarefa(id);
 }
 
 @Riverpod(keepAlive: true)
