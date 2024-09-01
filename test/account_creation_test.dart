@@ -19,21 +19,50 @@ void main() {
       await iAmOnThePage(tester, 'Criar conta');
     }
 
-    testWidgets('''Successful Account Creation''', (tester) async {
+    testWidgets('Successful Account Creation', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'mail@mail.com', 'email');
-      await iEnterIntoInputField(tester, 'password', 'senha');
-      await iEnterIntoInputField(tester, 'fulano Di tal', 'usuario');
-      await iTapButton(tester, 'Criar conta');
-      await iSeeASuccessMessage(tester, 'Email de confirmação enviado');
+
+      // Preencher todos os campos do formulário
+      await iEnterIntoInputField(tester, 'fulano Di tal', 0); // Nome
+      await iEnterIntoInputField(tester, '12345678909', 1); // CPF
+      await iEnterIntoInputField(tester, 'mail@mail.com', 2); // Email
+      await iEnterIntoInputField(tester, 'password', 3); // Senha
+      await iEnterIntoInputField(tester, 'password', 4); // Confirmar Senha
+      await iEnterIntoInputField(tester, 'UFBA', 5); // Universidade
+      await iEnterIntoInputField(tester, 'Ciência da Computação', 6); // Curso
+      await iEnterIntoInputField(tester, '1', 7); // Período
+      await iEnterIntoInputField(tester, '71999999999', 8); // Telefone
+
+      // Clicar no botão 'Cadastrar'
+      await iTapButton(tester, 'Cadastrar');
+
+      // Verificar se a mensagem de sucesso aparece
+      await iSeeASuccessMessage(tester, 'Usuário cadastrado com sucesso!');
+
+      //TODO: Implementar banco em memória
+
+      // Verificar se um email de confirmação foi enviado
       await aConfirmationEmailShouldBeSentTo(tester, 'mail@mail.com');
     });
+
     testWidgets('''Invalid Email Format''', (tester) async {
       await bddSetUp(tester);
-      await iEnterIntoInputField(tester, 'mail_mail.com', 'email');
-      await iEnterIntoInputField(tester, 'password', 'senha');
-      await iEnterIntoInputField(tester, 'fulano Di tal', 'usuario');
-      await iTapButton(tester, 'Criar conta');
+
+      // Preencher todos os campos do formulário
+      await iEnterIntoInputField(tester, 'fulano Di tal', 0); // Nome
+      await iEnterIntoInputField(tester, '12345678909', 1); // CPF
+      await iEnterIntoInputField(tester, 'mail_mail.com', 2); // Email
+      await iEnterIntoInputField(tester, 'password', 3); // Senha
+      await iEnterIntoInputField(tester, 'password', 4); // Confirmar Senha
+      await iEnterIntoInputField(tester, 'UFBA', 5); // Universidade
+      await iEnterIntoInputField(tester, 'Ciência da Computação', 6); // Curso
+      await iEnterIntoInputField(tester, '1', 7); // Período
+      await iEnterIntoInputField(tester, '71999999999', 8); // Telefone
+
+      // Clicar no botão '
+      await iTapButton(
+          tester, 'Cadastrar'); // Texto do botão atualizado para 'Cadastrar'
+
       await iSeeAnErrorMessage(tester, 'Email inválido');
     });
   });

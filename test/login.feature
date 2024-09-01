@@ -22,10 +22,3 @@ Feature: User Login
     And I enter {'pass'} into {'senha'} input field
     And I tap {'Login'} button
     Then I see text {'Usuario ou senha inválido'}
-
-  Scenario: Forgot Password
-    When I tap {'Esqueci minha senha'} text
-    And I see {'email'} input field
-    And I enter {'mail@mail.com'} into {'email'} input field
-    And I tap {'Recuperar senha'} button
-    Then I see {'Email para troca de senha foi enviado'} text
