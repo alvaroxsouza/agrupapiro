@@ -21,7 +21,6 @@ class LoginPage extends ConsumerWidget {
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

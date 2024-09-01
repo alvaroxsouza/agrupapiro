@@ -51,7 +51,7 @@ class DatabaseHelper {
   }
 
   Future<void> printDatabasePath() async {
-    String path = join(await getDatabasesPath(), 'meu_banco.db');
+    String path = join(await getDatabasesPath(), kDATABASE_NOME);
     print('Caminho do banco de dados: $path');
   }
 
