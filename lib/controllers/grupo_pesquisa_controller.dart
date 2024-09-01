@@ -46,4 +46,9 @@ class GrupoPesquisaController extends _$GrupoPesquisaController {
     final grupoPesquisaService = ref.read(grupoPesquisaServiceProvider);
     return await grupoPesquisaService.deleteGrupoPesquisa(id);
   }
+
+  Future<List> getGrupoPesquisaUsuario(String cpf) async {
+    final grupoPesquisaService = ref.read(grupoPesquisaServiceProvider);
+    return await grupoPesquisaService.getGrupoPesquisaUsuario(cpf);
+  }
 }

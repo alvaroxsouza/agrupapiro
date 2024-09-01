@@ -10,16 +10,23 @@ Future<void> theUserIsRegisteredWithPassword(
   // Inicializa o banco de dados em memória
   var dbHelper = DatabaseHelper();
 
-  // if (isDesktop()) {
-  sqfliteFfiInit();
-  databaseFactory = databaseFactoryFfi;
-  // } else if (kIsWeb) {
-  //   databaseFactory = databaseFactoryFfiWeb;
-  // } else {
-  //   databaseFactory = databaseFactory;
-  //   dbHelper = DatabaseHelper();
-  //   dbHelper.database;
-  // }
+  bool isDesktop() {
+    // Verifica se está rodando em desktop
+    return (defaultTargetPlatform == TargetPlatform.windows ||
+        defaultTargetPlatform == TargetPlatform.linux ||
+        defaultTargetPlatform == TargetPlatform.macOS);
+  }
+
+  if (isDesktop()) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  } else if (kIsWeb) {
+    databaseFactory = databaseFactoryFfiWeb;
+  } else {
+    databaseFactory = databaseFactory;
+    dbHelper = DatabaseHelper();
+    dbHelper.database;
+  }
 
   // Recupera a instância do banco de dados
   final db = await dbHelper.initInMemoryDatabase();
@@ -39,11 +46,4 @@ Future<void> theUserIsRegisteredWithPassword(
   addTearDown(() async {
     await dbHelper.close();
   });
-}
-
-bool isDesktop() {
-  // Verifica se está rodando em desktop
-  return (defaultTargetPlatform == TargetPlatform.windows ||
-      defaultTargetPlatform == TargetPlatform.linux ||
-      defaultTargetPlatform == TargetPlatform.macOS);
 }

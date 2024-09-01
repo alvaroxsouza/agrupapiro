@@ -53,7 +53,7 @@ class GrupoPesquisaDao {
     );
   }
 
-  insertGrupoPesquisaUsuarioAdmin(String id, String idAdmin) async {
+  Future<int> insertGrupoPesquisaUsuarioAdmin(String id, String idAdmin) async {
     Database db = await dbHelper.database;
     return await db.insert(
       kUSUARIO_GRUPO_PESQUISA_TABLENAME,
@@ -62,6 +62,30 @@ class GrupoPesquisaDao {
         kUSUARIO_GRUPO_PESQUISA_CPF: idAdmin
       },
     );
+  }
+
+  Future<List<GrupoPesquisa>> getGruposPesquisaPorUsuario(String cpf) async {
+    try {
+      Database db = await dbHelper.database;
+      final List<Map<String, dynamic>> result = await db.rawQuery(
+        '''
+        SELECT DISTINCT g.* FROM $kGRUPO_PESQUISA_TABLE_NAME g
+        INNER JOIN $kUSUARIO_GRUPO_PESQUISA_TABLENAME ugp 
+          ON g.$kGRUPO_PESQUISA_ID = ugp.$kUSUARIO_GRUPO_PESQUISA_GRUPO_PESQUISA_ID
+        INNER JOIN $kUSUARIO_GRUPO_PESQUISA_TABLENAME u 
+          ON u.cpf = ugp.$kUSUARIO_GRUPO_PESQUISA_CPF
+        WHERE u.cpf = ?
+        ''',
+        [cpf],
+      );
+
+      // Convertendo a lista de mapas para uma lista de objetos do tipo GrupoPesquisa
+      return result.map((map) => GrupoPesquisa.fromMap(map)).toList();
+    } catch (e) {
+      // Log de erro e possível rethrow para que o erro seja tratado mais acima na cadeia
+      print('Erro ao buscar grupos de pesquisa para o usuário: $e');
+      rethrow;
+    }
   }
 }
 

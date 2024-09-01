@@ -19,6 +19,11 @@ class GrupoPesquisa {
     required this.departamento,
   });
 
+  @override
+  String toString() {
+    return 'GrupoPesquisa{id: $id, nome: $nome, sigla: $sigla, descricao: $descricao, dataCriacao: $dataCriacao, instituicao: $instituicao, departamento: $departamento}';
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -29,6 +34,18 @@ class GrupoPesquisa {
       'instituicao': instituicao,
       'departamento': departamento,
     };
+  }
+
+  factory GrupoPesquisa.fromMap(Map<String, dynamic> map) {
+    return GrupoPesquisa(
+      id: map['id'],
+      nome: map['nome'],
+      sigla: map['sigla'],
+      descricao: map['descricao'],
+      dataCriacao: map['data_criacao'],
+      instituicao: map['instituicao'],
+      departamento: map['departamento'],
+    );
   }
 
   factory GrupoPesquisa.fromJson(Map<String, dynamic> json) => GrupoPesquisa(

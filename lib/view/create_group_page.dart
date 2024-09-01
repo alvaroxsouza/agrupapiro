@@ -75,6 +75,7 @@ class _CreateGroupPageState extends ConsumerState<CreateGroupPage> {
           }
         }
       } catch (e) {
+        print("Erro: $e");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Erro: $e'),

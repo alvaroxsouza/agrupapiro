@@ -24,6 +24,9 @@ class GrupoPesquisaService {
 
   Future<int> insertGrupoPesquisaUsuarioAdmin(String id, String idAdmin) =>
       _dao.insertGrupoPesquisaUsuarioAdmin(id, idAdmin);
+
+  Future<List> getGrupoPesquisaUsuario(String cpf) =>
+      _dao.getGruposPesquisaPorUsuario(cpf);
 }
 
 @Riverpod(keepAlive: true)

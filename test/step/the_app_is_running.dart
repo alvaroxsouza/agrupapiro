@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Future<void> theAppIsRunning(WidgetTester tester) async {
+  TestWidgetsFlutterBinding.ensureInitialized();
   // Defina o tamanho da janela para 1024x800 pixels, um tamanho maior que acomoda o botão
   tester.view.physicalSize = const Size(1024, 800);
 
