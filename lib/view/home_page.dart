@@ -1,4 +1,5 @@
 import 'package:agrupapiro/controllers/grupo_pesquisa_controller.dart';
+import 'package:agrupapiro/providers/grupo_pesquisa_provider.dart';
 import 'package:agrupapiro/services/sessao_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +12,8 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final groups = ref.watch(grupoPesquisaProvider);
+
     return Scaffold(
       drawer: Drawer(
         child: Column(
@@ -41,67 +44,34 @@ class HomePage extends ConsumerWidget {
         ),
         backgroundColor: Colors.red,
       ),
-      body: FutureBuilder<String?>(
-        future: ref.watch(sessaoServiceProvider).getUserToken(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return const Center(child: Text('Erro ao carregar o token'));
-          } else {
-            final String? tokenSession = snapshot.data;
-
-            if (tokenSession == null || tokenSession.isEmpty) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).pushReplacementNamed('/');
-              });
-              return const SizedBox
-                  .shrink(); // Evita que a UI seja desenhada enquanto redireciona
-            }
-
-            return FutureBuilder<List>(
-              future: ref
-                  .watch(grupoPesquisaControllerProvider.notifier)
-                  .getGrupoPesquisaUsuario(tokenSession),
-              builder: (context, groupSnapshot) {
-                if (groupSnapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else if (groupSnapshot.hasError) {
-                  return const Center(child: Text('Erro ao carregar grupos'));
-                } else if (!groupSnapshot.hasData ||
-                    groupSnapshot.data!.isEmpty) {
-                  return const Center(child: Text('Nenhum grupo encontrado'));
-                } else {
-                  final groups = groupSnapshot.data!;
-                  return ListView.builder(
-                    itemCount: groups.length, // Agora com base nos dados reais
-                    itemBuilder: (context, index) {
-                      final group = groups[index];
-                      return GroupContainer(
-                        key: ValueKey(group.id),
-                        id: group.id,
-                        nome: group.nome,
-                        sigla: group.sigla,
-                        descricao: group.descricao,
-                        dataCriacao: group.dataCriacao,
-                        instituicao: group.instituicao,
-                        departamento: group.departamento,
-                      );
-                    },
-                  );
-                }
+      body: groups.isEmpty
+          ? const Center(child: Text('Nenhum grupo encontrado'))
+          : ListView.builder(
+              itemCount: groups.length,
+              itemBuilder: (context, index) {
+                final group = groups[index];
+                return GroupContainer(
+                  key: ValueKey(group.id),
+                  id: group.id,
+                  nome: group.nome,
+                  sigla: group.sigla,
+                  descricao: group.descricao,
+                  dataCriacao: group.dataCriacao,
+                  instituicao: group.instituicao,
+                  departamento: group.departamento,
+                );
               },
-            );
-          }
-        },
-      ),
+            ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Navegar para a tela de criação de grupo
-          Navigator.push(
+        onPressed: () async {
+          // Navegar para a tela de criação de grupo e recarregar grupos ao retornar
+          await Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => CreateGroupPage()),
           );
+          ref
+              .read(grupoPesquisaProvider.notifier)
+              .refreshGrupos(); // Recarrega os grupos
         },
         backgroundColor: Colors.red,
         child: const Icon(Icons.add),
