@@ -6,7 +6,7 @@ part of 'tarefa_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$tarefaControllerHash() => r'c95ff84fbff5f33b4f2146cce99347793952574e';
+String _$tarefaControllerHash() => r'6273ec172995da3b8463b716d69283a35af4e1e1';
 
 /// See also [TarefaController].
 @ProviderFor(TarefaController)

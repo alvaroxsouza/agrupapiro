@@ -45,6 +45,7 @@ dependencies:
   sqflite_common_ffi_web: ^0.4.5+2
   analyzer: ^6.4.1
   uuid: ^4.5.0
+  shared_preferences: ^2.3.2
 
 dev_dependencies:
   flutter_test:

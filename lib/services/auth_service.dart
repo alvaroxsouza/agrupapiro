@@ -8,14 +8,14 @@ class AuthService {
 
   AuthService(this._dao);
 
-  Future<bool> login(String email, String senha) async {
+  Future<String> login(String email, String senha) async {
     final usuario = await _dao.getByEmail(email);
 
     if (usuario != null && usuario.senha == senha) {
-      return true;
+      return usuario.cpf;
     }
 
-    return false;
+    return '';
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:agrupapiro/services/auth_service.dart';
+import 'package:agrupapiro/services/sessao_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/constants/enum/rotas.dart';
@@ -11,6 +12,38 @@ class LoginPage extends ConsumerWidget {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     ref.watch(authServiceProvider);
+
+    Future<void> entrar() async {
+      {
+        final email = emailController.text.trim();
+        final password = passwordController.text.trim();
+
+        if (email.isEmpty || password.isEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text('Por favor, preencha todos os campos.')),
+          );
+          return;
+        }
+
+        final tokenSession =
+            await ref.read(authServiceProvider).login(email, password);
+
+        if (tokenSession != '') {
+          ref.read(sessaoServiceProvider).saveUserSession(tokenSession);
+          if (context.mounted) {
+            Navigator.of(context).pushReplacementNamed(Routes.HOME);
+          }
+        } else {
+          if (context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                  content: Text('Falha no login. Verifique suas credenciais.')),
+            );
+          }
+        }
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -53,39 +86,12 @@ class LoginPage extends ConsumerWidget {
                         child: const Text('Cadastrar'),
                       ),
                       ElevatedButton(
-                        onPressed: () async {
-                          final email = emailController.text.trim();
-                          final password = passwordController.text.trim();
-
-                          if (email.isEmpty || password.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Por favor, preencha todos os campos.')),
-                            );
-                            return;
-                          }
-
-                          final success = await ref
-                              .read(authServiceProvider)
-                              .login(email, password);
-
-                          if (success) {
-                            Navigator.of(context)
-                                .pushReplacementNamed(Routes.HOME);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                  content: Text(
-                                      'Falha no login. Verifique suas credenciais.')),
-                            );
-                          }
-                        },
-                        child: const Text('Entrar'),
+                        onPressed: entrar,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.red,
                           minimumSize: const Size(100, 50),
                         ),
+                        child: const Text('Entrar'),
                       ),
                     ],
                   ),
