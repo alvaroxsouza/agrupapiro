@@ -16,6 +16,11 @@ class TarefaController extends _$TarefaController {
     return await service.insertTarefa(tarefa);
   }
 
+  Future<int> associarTarefaGrupo(String idTarefa, String idGrupo) async {
+    final service = ref.read(tarefaServiceProvider);
+    return await service.associarTarefaGrupo(idTarefa, idGrupo);
+  }
+
   Future<List> fetchTarefas() async {
     final service = ref.read(tarefaServiceProvider);
     return await service.getTarefa();

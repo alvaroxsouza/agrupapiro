@@ -16,6 +16,17 @@ class TarefaDao {
     return await db.insert('Tarefas', tarefa.toMap());
   }
 
+  Future<int> associarTarefaGrupo(String idTarefa, String idGrupo) async {
+    Database db = await dbHelper.database;
+    return await db.insert(
+      kTAREFA_GRUPO_PESQUISA_TABLENAME,
+      {
+        kTAREFA_GRUPO_PESQUISA_TAREFA_ID: idTarefa,
+        kTAREFA_GRUPO_PESQUISA_GRUPO_PESQUISA_ID: idGrupo,
+      },
+    );
+  }
+
   Future<List<Map<String, dynamic>>> getTarefas() async {
     Database db = await dbHelper.database;
     return await db.query('Tarefas');

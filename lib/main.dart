@@ -1,4 +1,5 @@
 import 'package:agrupapiro/data/database.dart';
+import 'package:agrupapiro/view/create_tarefa.dart';
 import 'package:agrupapiro/view/tarefa_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +68,13 @@ class MyApp extends StatelessWidget {
           case Routes.ATIVIDADES:
             return MaterialPageRoute(
               builder: (_) => const TarefaPage(
+                idGrupo: '',
+              ),
+            );
+          case Routes.CRIAR_TAREFA:
+            final idGrupo = settings.arguments as String;
+            return MaterialPageRoute(
+              builder: (_) => CreateTarefa(
                 idGrupo: '',
               ),
             );

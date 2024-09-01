@@ -1,3 +1,4 @@
+import 'package:agrupapiro/constants/enum/rotas.dart';
 import 'package:agrupapiro/models/tarefa.dart';
 import 'package:agrupapiro/repositories/tarefa_dao.dart';
 import 'package:flutter/material.dart';
@@ -46,6 +47,13 @@ class TarefaPage extends ConsumerWidget {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context)
+              .pushNamed(Routes.CRIAR_TAREFA, arguments: idGrupo);
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

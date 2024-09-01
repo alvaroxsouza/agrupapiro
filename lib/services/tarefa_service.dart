@@ -11,6 +11,9 @@ class TarefaService {
 
   Future<int> insertTarefa(Tarefa tarefa) => _dao.insertTarefa(tarefa);
 
+  Future<int> associarTarefaGrupo(String idTarefa, String idGrupo) =>
+      _dao.associarTarefaGrupo(idTarefa, idGrupo);
+
   Future<List> getTarefa() => _dao.getTarefas();
 
   Future<Map<String, dynamic>?> getById(String id) => _dao.getById(id);
