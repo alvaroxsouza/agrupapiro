@@ -1,4 +1,5 @@
 import 'package:agrupapiro/data/database.dart';
+import 'package:agrupapiro/view/tarefa_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -63,8 +64,12 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (_) => const CreateGroupPage());
           case Routes.GRUPO:
             return MaterialPageRoute(builder: (_) => GroupPage());
-          // case Routes.ATIVIDADES:
-          // // return MaterialPageRoute(builder: (_) => const ActivityPage());
+          case Routes.ATIVIDADES:
+            return MaterialPageRoute(
+              builder: (_) => const TarefaPage(
+                idGrupo: '',
+              ),
+            );
           default:
             return MaterialPageRoute(
               builder: (_) => Scaffold(
