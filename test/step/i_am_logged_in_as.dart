@@ -13,6 +13,7 @@ Future<void> iAmLoggedInAs(WidgetTester tester, String userRole) async {
   // Simula um usuário logado de acordo com a função fornecida
   switch (userRole) {
     case 'Administrador Geral':
+      // Define o estado de autenticação como logado com o usuário especificado
       await authService.login('admin@example.com', 'password'); // Ajuste conforme necessário
       break;
     // Adicione outros casos se houver outros tipos de usuários
