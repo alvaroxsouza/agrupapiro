@@ -25,7 +25,7 @@ class Tarefa {
       'titulo': titulo,
       'descricao': descricao,
       'data_entrega': dataEntrega,
-      'data_criacao': dataCriacao,
+      'data_criacao': dataCriacao.toString(),
       'id_grupo_pesquisa': idGrupoPesquisa,
       'id_usuario': idUsuario,
       'status': status,

@@ -1,4 +1,4 @@
-import 'package:agrupapiro/data/tarefa_dao.dart';
+import 'package:agrupapiro/repositories/tarefa_dao.dart';
 import 'package:agrupapiro/models/tarefa.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

@@ -60,11 +60,11 @@ class MyApp extends StatelessWidget {
           case Routes.CADASTRO:
             return MaterialPageRoute(builder: (_) => const CadastroPage());
           case Routes.CRIAR:
-            return MaterialPageRoute(builder: (_) => CreateGroupPage());
+            return MaterialPageRoute(builder: (_) => const CreateGroupPage());
           case Routes.GRUPO:
             return MaterialPageRoute(builder: (_) => GroupPage());
-          case Routes.ATIVIDADES:
-          // return MaterialPageRoute(builder: (_) => const ActivityPage());
+          // case Routes.ATIVIDADES:
+          // // return MaterialPageRoute(builder: (_) => const ActivityPage());
           default:
             return MaterialPageRoute(
               builder: (_) => Scaffold(
