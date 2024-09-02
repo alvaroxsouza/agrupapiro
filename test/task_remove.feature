@@ -1,24 +1,16 @@
-Feature: Task Creation
+Feature: Remove Task
 
   Background:
     Given the app is running
     And I am logged in as {'Administrador Geral'} user permission
+    And there are tasks created in the system
 
-  Scenario: Creating a Task
-    When I tap {Icons.add} icon
-    And I enter {'Levantar requisitos'} into {'titulo'} input field
-    And I enter {'Analisar aplicação e levar os requisitos'} into {'descrição'} input field
-    And I enter {'20/09/2024'} into {'prazo'} input field
-    And I tap {'média'} text as the priority
-    And I tap {'Criar Tarefa'} text
-    Then I should see a confirmation message {'Tarefa criada com sucesso'}
-    And the task {'Levantar requisitos'} should be visible in the group's task list
+  Scenario: Successfully Removing an Existing Task
+    When I select a task named {'Tarefa Obsoleta'}
+    And I tap {'Remover Tarefa'} button
+    Then I see a confirmation message {'Tarefa removida com sucesso'}
+    And the task no longer appears in the task lists of the members
 
-  Scenario: Invalid Task Creation Due to Past Deadline
-    When I tap {Icons.add} icon
-    And I enter {'Levantar requisitos'} into {'titulo'} input field
-    And I enter {'Analisar aplicação e levar os requisitos'} into {'descrição'} input field
-    And I enter {'20/09/1990'} into {'prazo'} input field
-    And I tap {'média'} text as the priority
-    And I tap {'Criar Tarefa'} text
-    Then I see an error message {'Prazo anterior a data atual'}
+  Scenario: Failure to Remove a Task Due to System Error
+    When the system encounters an error
+    Then I see an error message {'Erro ao remover a tarefa. Tente novamente mais tarde'}

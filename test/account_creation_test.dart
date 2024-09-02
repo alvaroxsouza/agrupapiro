@@ -4,13 +4,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './step/the_app_is_running.dart';
+import './step/a_confirmation_email_should_be_sent_to.dart';
 import './step/i_am_on_the_page.dart';
 import './step/i_enter_into_input_field.dart';
-import './step/i_tap_button.dart';
 import './step/i_see_a_success_message.dart';
-import './step/a_confirmation_email_should_be_sent_to.dart';
 import './step/i_see_an_error_message.dart';
+import './step/i_tap_button.dart';
+import './step/the_app_is_running.dart';
 
 void main() {
   group('''Account Creation''', () {

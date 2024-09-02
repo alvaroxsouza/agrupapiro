@@ -34,7 +34,7 @@ Future<void> theUserIsRegisteredWithPassword(
   // Inserir o usuário no banco de dados
   await db.insert(kUSUARIO_TABLE_NAME, {
     'nome': username,
-    'email': username, // Assumindo que o nome de usuário também seja o email
+    'email': '$username@mail.com', 
     'senha': password,
     'universidade': 'UFBA',
     'curso': 'Ciência da Computação',
@@ -42,7 +42,7 @@ Future<void> theUserIsRegisteredWithPassword(
     'telefone': '71999999999',
   });
 
-  // Adicionar tearDown para fechar o banco de dados após o teste
+  // Fecha o banco de dados após o teste
   addTearDown(() async {
     await dbHelper.close();
   });
