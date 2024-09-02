@@ -1,4 +1,4 @@
-const String kUSUARIOTABLENAME = 'usuario_sistema';
+const String kUSUARIO_TABLE_NAME = 'usuario_sistema';
 
 const String kUSUARIO_CPF = 'cpf';
 const String kUSUARIO_NOME = 'nome';
@@ -10,7 +10,7 @@ const String kUSUARIO_CURSO = 'curso';
 const String kUSUARIO_PERIODO = 'periodo';
 
 const String kUSUARIO_CREATE_TABLE = '''
-  CREATE TABLE $kUSUARIOTABLENAME (
+  CREATE TABLE $kUSUARIO_TABLE_NAME (
     $kUSUARIO_CPF TEXT PRIMARY KEY,
     $kUSUARIO_NOME TEXT NOT NULL,
     $kUSUARIO_EMAIL TEXT NOT NULL,

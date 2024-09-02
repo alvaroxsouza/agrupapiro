@@ -27,6 +27,10 @@ class GrupoPesquisaService {
 
   Future<List> getGrupoPesquisaUsuario(String cpf) =>
       _dao.getGruposPesquisaPorUsuario(cpf);
+
+  associarUsuarioGrupoPesquisa(String idGrupoPesquisa, String cpf) {
+    return _dao.associarUsuarioGrupoPesquisa(idGrupoPesquisa, cpf);
+  }
 }
 
 @Riverpod(keepAlive: true)

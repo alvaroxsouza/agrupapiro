@@ -1,6 +1,5 @@
-import 'package:agrupapiro/controllers/grupo_pesquisa_controller.dart';
 import 'package:agrupapiro/providers/grupo_pesquisa_provider.dart';
-import 'package:agrupapiro/services/sessao_service.dart';
+import 'package:agrupapiro/providers/usuario_logado_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -13,68 +12,80 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final groups = ref.watch(grupoPesquisaProvider);
+    final usuario = ref.watch(usuarioLogadoProvider);
 
-    return Scaffold(
-      drawer: Drawer(
-        child: Column(
-          children: [
-            const UserAccountsDrawerHeader(
-              accountName: Text("usuario"),
-              accountEmail: Text("email@gmail.com"),
-            ),
-            ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text("Inicio"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(Icons.exit_to_app),
-              title: const Text("Sair"),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed('/');
-              },
-            ),
-          ],
+    if (usuario == null) {
+      // Redireciona o usuário e retorna um widget vazio
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pushReplacementNamed('/');
+      });
+      return const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      );
+    } else {
+      return Scaffold(
+        drawer: Drawer(
+          child: Column(
+            children: [
+              UserAccountsDrawerHeader(
+                accountName: Text(usuario.cpf),
+                accountEmail: Text(usuario.email),
+              ),
+              ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text("Inicio"),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: const Icon(Icons.exit_to_app),
+                title: const Text("Sair"),
+                onTap: () {
+                  ref.read(usuarioLogadoProvider.notifier).logout();
+                  Navigator.of(context).pushReplacementNamed('/');
+                },
+              ),
+            ],
+          ),
         ),
-      ),
-      appBar: AppBar(
-        title: const Text(
-          'Home',
-          style: TextStyle(color: Colors.black),
+        appBar: AppBar(
+          title: const Text(
+            'Home',
+            style: TextStyle(color: Colors.black),
+          ),
+          backgroundColor: Colors.red,
         ),
-        backgroundColor: Colors.red,
-      ),
-      body: groups.isEmpty
-          ? const Center(child: Text('Nenhum grupo encontrado'))
-          : ListView.builder(
-              itemCount: groups.length,
-              itemBuilder: (context, index) {
-                final group = groups[index];
-                return GroupContainer(
-                  id: group.id,
-                  nome: group.nome,
-                  sigla: group.sigla,
-                  descricao: group.descricao,
-                  dataCriacao: group.dataCriacao,
-                  instituicao: group.instituicao,
-                  departamento: group.departamento,
-                );
-              },
-            ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {
-          // Navegar para a tela de criação de grupo e recarregar grupos ao retornar
-          await Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => CreateGroupPage()),
-          );
-          ref
-              .read(grupoPesquisaProvider.notifier)
-              .refreshGrupos(); // Recarrega os grupos
-        },
-        backgroundColor: Colors.red,
-        child: const Icon(Icons.add),
-      ),
-    );
+        body: groups.isEmpty
+            ? const Center(child: Text('Nenhum grupo encontrado'))
+            : ListView.builder(
+                itemCount: groups.length,
+                itemBuilder: (context, index) {
+                  final group = groups[index];
+                  return GroupContainer(
+                    id: group.id,
+                    nome: group.nome,
+                    sigla: group.sigla,
+                    descricao: group.descricao,
+                    dataCriacao: group.dataCriacao,
+                    instituicao: group.instituicao,
+                    departamento: group.departamento,
+                  );
+                },
+              ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            // Navegar para a tela de criação de grupo e recarregar grupos ao retornar
+            await Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => CreateGroupPage()),
+            );
+            ref
+                .read(grupoPesquisaProvider.notifier)
+                .refreshGrupos(); // Recarrega os grupos
+          },
+          backgroundColor: Colors.red,
+          child: const Icon(Icons.add),
+        ),
+      );
+    }
   }
 }

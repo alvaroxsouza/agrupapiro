@@ -40,14 +40,4 @@ class TarefaController extends _$TarefaController {
     final service = ref.read(tarefaServiceProvider);
     return await service.deleteTarefa(id);
   }
-
-  // Future<List> fetchTarefasByUser(String cpf) async {
-  //   final service = ref.read(tarefaServiceProvider);
-  //   return await service.getTarefasByUser(cpf);
-  // }
-
-  // Future<List> fetchTarefasByGroup(String id) async {
-  //   final service = ref.read(tarefaServiceProvider);
-  //   return await service.getTarefasByGroup(id);
-  // }
 }

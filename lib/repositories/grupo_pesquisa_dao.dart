@@ -1,4 +1,5 @@
 import 'package:agrupapiro/constants/database_constants/database_grupo_pesquisa.dart';
+import 'package:agrupapiro/constants/database_constants/database_usuario_sistema.dart';
 import 'package:agrupapiro/constants/database_constants/database_usuario_sistema_grupo_pesquisa.dart';
 import 'package:agrupapiro/data/database.dart';
 import 'package:agrupapiro/models/grupo_pesquisa.dart';
@@ -86,6 +87,42 @@ class GrupoPesquisaDao {
       print('Erro ao buscar grupos de pesquisa para o usuário: $e');
       rethrow;
     }
+  }
+
+  Future<List<GrupoPesquisa>> getUsuariosPorGrupoPesquisa(
+      String idGrupo) async {
+    try {
+      Database db = await dbHelper.database;
+      final List<Map<String, dynamic>> result = await db.rawQuery(
+        '''
+        SELECT DISTINCT u.* FROM $kUSUARIO_TABLE_NAME u
+        INNER JOIN $kUSUARIO_GRUPO_PESQUISA_TABLENAME ugp 
+          ON u.cpf = ugp.$kUSUARIO_GRUPO_PESQUISA_CPF
+        INNER JOIN $kGRUPO_PESQUISA_TABLE_NAME g 
+          ON g.$kGRUPO_PESQUISA_ID = ugp.$kUSUARIO_GRUPO_PESQUISA_GRUPO_PESQUISA_ID
+        WHERE g.$kGRUPO_PESQUISA_ID = ?
+        ''',
+        [idGrupo],
+      );
+
+      // Convertendo a lista de mapas para uma lista de objetos do tipo GrupoPesquisa
+      return result.map((map) => GrupoPesquisa.fromMap(map)).toList();
+    } catch (e) {
+      // Log de erro e possível rethrow para que o erro seja tratado mais acima na cadeia
+      print('Erro ao buscar grupos de pesquisa para o usuário: $e');
+      rethrow;
+    }
+  }
+
+  Future<int> associarUsuarioGrupoPesquisa(String idGrupo, String cpf) async {
+    Database db = await dbHelper.database;
+    return await db.insert(
+      kUSUARIO_GRUPO_PESQUISA_TABLENAME,
+      {
+        kUSUARIO_GRUPO_PESQUISA_GRUPO_PESQUISA_ID: idGrupo,
+        kUSUARIO_GRUPO_PESQUISA_CPF: cpf
+      },
+    );
   }
 }
 

@@ -51,4 +51,11 @@ class GrupoPesquisaController extends _$GrupoPesquisaController {
     final grupoPesquisaService = ref.read(grupoPesquisaServiceProvider);
     return await grupoPesquisaService.getGrupoPesquisaUsuario(cpf);
   }
+
+  Future<int> associarUsuarioGrupoPesquisa(
+      String idGrupoPesquisa, String cpf) async {
+    final grupoPesquisaService = ref.read(grupoPesquisaServiceProvider);
+    return await grupoPesquisaService.associarUsuarioGrupoPesquisa(
+        idGrupoPesquisa, cpf);
+  }
 }

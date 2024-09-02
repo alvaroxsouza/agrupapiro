@@ -32,7 +32,7 @@ Future<void> theUserIsRegisteredWithPassword(
   final db = await dbHelper.initInMemoryDatabase();
 
   // Inserir o usuário no banco de dados
-  await db.insert(kUSUARIOTABLENAME, {
+  await db.insert(kUSUARIO_TABLE_NAME, {
     'nome': username,
     'email': username, // Assumindo que o nome de usuário também seja o email
     'senha': password,
