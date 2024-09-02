@@ -15,9 +15,8 @@ Future<void> iAmLoggedInAs(WidgetTester tester, String userRole) async {
     case 'Administrador Geral':
       // Define o estado de autenticação como logado com o usuário especificado
       await authService.login(
-          'admin@example.com', 'password'); // Ajuste conforme necessário
+          'admin@example.com', 'password');
       break;
-    // Adicione outros casos se houver outros tipos de usuários
     default:
       throw UnimplementedError('Usuário $userRole não implementado');
   }

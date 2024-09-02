@@ -4,18 +4,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './step/the_app_is_running.dart';
 import './step/i_am_logged_in_as_user_permission.dart';
-import './step/i_select_a_task_named.dart';
 import './step/i_choose_members_to_assign_the_task.dart';
-import './step/i_tap_button.dart';
-import './step/i_see_a_confirmation_message.dart';
-import './step/members_receive_notifications_about_the_new_task.dart';
-import './step/joao_is_already_overloaded.dart';
-import './step/i_see_a_suggestion.dart';
-import './step/the_task_assignment_should_not_be_completed.dart';
 import './step/i_do_not_select_any_members.dart';
+import './step/i_see_a_confirmation_message.dart';
+import './step/i_see_a_suggestion.dart';
 import './step/i_see_an_error_message.dart';
+import './step/i_select_a_task_named.dart';
+import './step/i_tap_button.dart';
+import './step/joao_is_already_overloaded.dart';
+import './step/members_receive_notifications_about_the_new_task.dart';
+import './step/the_app_is_running.dart';
+import './step/the_task_assignment_should_not_be_completed.dart';
 
 void main() {
   group('''Task Assignment''', () {

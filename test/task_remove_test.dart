@@ -4,47 +4,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './step/the_app_is_running.dart';
 import './step/i_am_logged_in_as_user_permission.dart';
-import './step/i_tap_icon.dart';
-import './step/i_enter_into_input_field.dart';
-import './step/i_tap_text_as_the_priority.dart';
-import './step/i_tap_text.dart';
-import './step/i_should_see_a_confirmation_message.dart';
-import './step/the_task_should_be_visible_in_the_groups_task_list.dart';
+import './step/i_see_a_confirmation_message.dart';
 import './step/i_see_an_error_message.dart';
+import './step/i_select_a_task_named.dart';
+import './step/i_tap_button.dart';
+import './step/the_app_is_running.dart';
+import './step/the_system_encounters_an_error.dart';
+import './step/the_task_no_longer_appears_in_the_task_lists_of_the_members.dart';
+import './step/there_are_tasks_created_in_the_system.dart';
 
 void main() {
-  group('''Task Creation''', () {
+  group('Remove Task', () {
     Future<void> bddSetUp(WidgetTester tester) async {
       await theAppIsRunning(tester);
       await iAmLoggedInAsUserPermission(tester, 'Administrador Geral');
+      await thereAreTasksCreatedInTheSystem(tester, idGrupo: '1');
     }
 
-    testWidgets('''Creating a Task''', (tester) async {
+    testWidgets('Successfully Removing an Existing Task', (tester) async {
       await bddSetUp(tester);
-      await iTapIcon(tester, Icons.add);
-      await iEnterIntoInputField(tester, 'Levantar requisitos', 'titulo');
-      await iEnterIntoInputField(
-          tester, 'Analisar aplicação e levar os requisitos', 'descrição');
-      await iEnterIntoInputField(tester, '20/09/2024', 'prazo');
-      await iTapTextAsThePriority(tester, 'média');
-      await iTapText(tester, 'Criar Tarefa');
-      await iShouldSeeAConfirmationMessage(tester, 'Tarefa criada com sucesso');
-      await theTaskShouldBeVisibleInTheGroupsTaskList(
-          tester, 'Levantar requisitos');
+      await iSelectATaskNamed(tester, 'Tarefa Obsoleta');
+      await iTapButton(tester, 'Remover Tarefa');
+      await iSeeAConfirmationMessage(tester, 'Tarefa removida com sucesso');
+      await theTaskNoLongerAppearsInTheTaskListsOfTheMembers(tester);
     });
-    testWidgets('''Invalid Task Creation Due to Past Deadline''',
-        (tester) async {
+
+    testWidgets('Failure to Remove a Task Due to System Error', (tester) async {
       await bddSetUp(tester);
-      await iTapIcon(tester, Icons.add);
-      await iEnterIntoInputField(tester, 'Levantar requisitos', 'titulo');
-      await iEnterIntoInputField(
-          tester, 'Analisar aplicação e levar os requisitos', 'descrição');
-      await iEnterIntoInputField(tester, '20/09/1990', 'prazo');
-      await iTapTextAsThePriority(tester, 'média');
-      await iTapText(tester, 'Criar Tarefa');
-      await iSeeAnErrorMessage(tester, 'Prazo anterior a data atual');
+      await theSystemEncountersAnError(tester);
+      await iSeeAnErrorMessage(
+          tester, 'Erro ao remover a tarefa. Tente novamente mais tarde');
     });
   });
 }

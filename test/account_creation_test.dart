@@ -4,66 +4,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import './step/the_app_is_running.dart';
-import './step/i_am_on_the_page.dart';
-import './step/i_enter_into_input_field.dart';
-import './step/i_tap_button.dart';
-import './step/i_see_a_success_message.dart';
-import './step/a_confirmation_email_should_be_sent_to.dart';
+import './step/i_am_logged_in_as_user_permission.dart';
+import './step/i_remove_the_assignment_of_member.dart';
+import './step/i_remove_the_assignments_of_members.dart';
 import './step/i_see_an_error_message.dart';
+import './step/i_see_text.dart';
+import './step/i_select_a_task_named.dart';
+import './step/the_app_is_running.dart';
+import './step/the_system_encounters_an_error.dart';
+import './step/the_task_no_longer_shows_carlos_as_assigned.dart';
+import './step/the_task_shows_status.dart';
+import './step/there_are_tasks_with_members_assigned.dart';
 
 void main() {
-  group('''Account Creation''', () {
+  group('''Task Assignment Removal''', () {
     Future<void> bddSetUp(WidgetTester tester) async {
       await theAppIsRunning(tester);
-      await iAmOnThePage(tester, 'Criar conta');
+      await iAmLoggedInAsUserPermission(tester, 'Administrador Geral');
+      await thereAreTasksWithMembersAssigned(tester);
     }
 
-    testWidgets('Successful Account Creation', (tester) async {
+    testWidgets('''Remove Assignment of a Specific Member''', (tester) async {
       await bddSetUp(tester);
-
-      // Preencher todos os campos do formulário
-      await iEnterIntoInputField(tester, 'fulano Di tal', 0); // Nome
-      await iEnterIntoInputField(tester, '12345678909', 1); // CPF
-      await iEnterIntoInputField(tester, 'mail@mail.com', 2); // Email
-      await iEnterIntoInputField(tester, 'password', 3); // Senha
-      await iEnterIntoInputField(tester, 'password', 4); // Confirmar Senha
-      await iEnterIntoInputField(tester, 'UFBA', 5); // Universidade
-      await iEnterIntoInputField(tester, 'Ciência da Computação', 6); // Curso
-      await iEnterIntoInputField(tester, '1', 7); // Período
-      await iEnterIntoInputField(tester, '71999999999', 8); // Telefone
-
-      // Clicar no botão 'Cadastrar'
-      await iTapButton(tester, 'Cadastrar');
-
-      // Verificar se a mensagem de sucesso aparece
-      await iSeeASuccessMessage(tester, 'Usuário cadastrado com sucesso!');
-
-      //TODO: Implementar banco em memória
-
-      // Verificar se um email de confirmação foi enviado
-      await aConfirmationEmailShouldBeSentTo(tester, 'mail@mail.com');
+      await iSelectATaskNamed(tester, 'Tarefa de Revisão');
+      await iRemoveTheAssignmentOfMember(tester, 'Carlos');
+      await iSeeText(tester, 'Atribuição de Carlos removida com sucesso');
+      await theTaskNoLongerShowsCarlosAsAssigned(tester);
     });
-
-    testWidgets('''Invalid Email Format''', (tester) async {
+    testWidgets('''Remove Assignment of Multiple Members''', (tester) async {
       await bddSetUp(tester);
-
-      // Preencher todos os campos do formulário
-      await iEnterIntoInputField(tester, 'fulano Di tal', 0); // Nome
-      await iEnterIntoInputField(tester, '12345678909', 1); // CPF
-      await iEnterIntoInputField(tester, 'mail_mail.com', 2); // Email
-      await iEnterIntoInputField(tester, 'password', 3); // Senha
-      await iEnterIntoInputField(tester, 'password', 4); // Confirmar Senha
-      await iEnterIntoInputField(tester, 'UFBA', 5); // Universidade
-      await iEnterIntoInputField(tester, 'Ciência da Computação', 6); // Curso
-      await iEnterIntoInputField(tester, '1', 7); // Período
-      await iEnterIntoInputField(tester, '71999999999', 8); // Telefone
-
-      // Clicar no botão '
-      await iTapButton(
-          tester, 'Cadastrar'); // Texto do botão atualizado para 'Cadastrar'
-
-      await iSeeAnErrorMessage(tester, 'Email inválido');
+      await iSelectATaskNamed(tester, 'Tarefa de Revisão');
+      await iRemoveTheAssignmentsOfMembers(tester, 'Carlos' 'Ana');
+      await iSeeText(tester, 'Todos os membros foram removidos da tarefa');
+      await theTaskShowsStatus(tester, 'Não Atribuída');
+    });
+    testWidgets('''Failure to Remove the Assignment of a Member''',
+        (tester) async {
+      await bddSetUp(tester);
+      await theSystemEncountersAnError(tester);
+      await iSeeAnErrorMessage(
+          tester, 'Erro ao remover atribuição. Tente novamente mais tarde');
     });
   });
 }
