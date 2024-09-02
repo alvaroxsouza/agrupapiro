@@ -1,5 +1,7 @@
+import 'package:agrupapiro/controllers/usuario_sistema_controller.dart';
 import 'package:agrupapiro/services/auth_service.dart';
 import 'package:agrupapiro/services/sessao_service.dart';
+import 'package:agrupapiro/view/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:agrupapiro/constants/enum/rotas.dart';
@@ -31,8 +33,16 @@ class LoginPage extends ConsumerWidget {
 
         if (tokenSession != '') {
           ref.read(sessaoServiceProvider).saveUserSession(tokenSession);
-          if (context.mounted) {
-            Navigator.of(context).pushReplacementNamed(Routes.HOME);
+          final usuario = await ref
+              .read(usuarioSistemaControllerProvider.notifier)
+              .fetchUsuarioById(tokenSession);
+
+          if (context.mounted && usuario != null) {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomePage(usuario: usuario)),
+            );
           }
         } else {
           if (context.mounted) {

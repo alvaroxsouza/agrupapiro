@@ -56,7 +56,10 @@ class MyApp extends StatelessWidget {
       onGenerateRoute: (settings) {
         switch (settings.name) {
           case Routes.HOME:
-            return MaterialPageRoute(builder: (_) => const HomePage());
+            return MaterialPageRoute(
+                builder: (_) => HomePage(
+                      usuario: null,
+                    ));
           case Routes.LOGIN:
             return MaterialPageRoute(builder: (_) => const LoginPage());
           case Routes.CADASTRO:
