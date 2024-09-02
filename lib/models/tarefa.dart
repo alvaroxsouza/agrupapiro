@@ -65,4 +65,22 @@ class Tarefa {
         'id_usuario': idUsuario,
         'status': status,
       };
+
+  copyWith({
+    required String titulo,
+    required String descricao,
+    required String dataEntrega,
+    required String status,
+  }) {
+    return Tarefa(
+      id: id,
+      titulo: titulo,
+      descricao: descricao,
+      dataEntrega: dataEntrega,
+      dataCriacao: dataCriacao,
+      idGrupo: idGrupo,
+      idUsuario: idUsuario,
+      status: status,
+    );
+  }
 }

@@ -35,7 +35,7 @@ class TarefaDao {
   Future<Map<String, dynamic>?> getById(String id) async {
     Database db = await dbHelper.database;
     List<Map<String, dynamic>> maps = await db.query(
-      'Tarefas',
+      kTAREFA_TABLE_NAME,
       where: 'id = ?',
       whereArgs: [id],
     );
@@ -72,7 +72,7 @@ class TarefaDao {
   Future<int> updateTarefa(Tarefa tarefa) async {
     Database db = await dbHelper.database;
     return await db.update(
-      'Tarefas',
+      kTAREFA_TABLE_NAME,
       tarefa.toMap(),
       where: 'id = ?',
       whereArgs: [tarefa.id],
